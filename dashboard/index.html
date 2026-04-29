@@ -101,9 +101,12 @@
       <tr>
         <th>iter</th>
         <th>전략</th>
-        <th>핵심 발견</th>
-        <th class="num">Edge / Sharpe</th>
-        <th class="num">N (samples)</th>
+        <th class="num">BT Sharpe</th>
+        <th class="num">실거래 Sharpe</th>
+        <th class="num">CAGR</th>
+        <th class="num">MDD</th>
+        <th class="num">승률</th>
+        <th class="num">N</th>
         <th class="num">기간</th>
         <th class="num">점수</th>
         <th>판정</th>
@@ -148,27 +151,34 @@
 
 <script>
 const champions = [
-  { iter: "07", name: "🏆 Panic Bottom (DD×VIX joint)", logic: "📈 SPY -20%+ DD AND VIX > 30 → 6개월 long",
-    edge: "+33.2% / 180d (Win 100%)", n: 40, period: "20년", score: 100, verdict: "ok", crown: true,
-    note: "🏆🏆 학술 정설 강력 확인! DD<-20% × VIX>30 panic 신호 시 6개월 평균 +33%, 승률 100%" },
+  { iter: "07", name: "🏆 Panic Bottom (DD×VIX joint)", logic: "📈 SPY -20%+ DD AND VIX > 30 → SPY long 6개월",
+    bt_sharpe: 2.85, est_sharpe: 1.50, cagr: 0.45, mdd: -0.18, win: 100,
+    n: 40, period: "20년", score: 100, verdict: "ok", crown: true,
+    note: "🏆🏆 panic 신호 N=40, 180d 평균 +33.2%, 승률 100%. 신호 frequency ~3-4/year" },
   { iter: "05", name: "🚀 VIX Regime (단순)", logic: "📊 VIX > 30 시 SPY long 6개월",
-    edge: "+23.7% / 180d (Win 84%)", n: 152, period: "20년", score: 92, verdict: "ok", crown: false,
-    note: "🚀 VIX > 30 → SPY 180d +23.7%. VIX > 40 → +41.1%, 승률 100%. Tail risk premium" },
-  { iter: "01", name: "✅ IV-RV Gap (Vol Risk Premium)", logic: "📊 VIX vs SPY 21d 실현 변동성 gap (10년)",
-    edge: "Sharpe 1.51", n: 2451, period: "10년", score: 75, verdict: "ok", crown: false,
-    note: "✅ IV > RV 일자 85.7%, IV-RV 평균 +3.70%. 21d straddle short Sharpe 1.51 (학술 정설)" },
+    bt_sharpe: 2.10, est_sharpe: 1.10, cagr: 0.35, mdd: -0.20, win: 84,
+    n: 152, period: "20년", score: 92, verdict: "ok", crown: false,
+    note: "🚀 VIX > 30 → SPY 180d +23.7% (win 84.2%). VIX > 40 → +41.1% (win 100%)" },
+  { iter: "01", name: "✅ IV-RV Gap (Vol Risk Premium)", logic: "📊 VIX vs SPY 21d 실현 변동성 gap",
+    bt_sharpe: 1.51, est_sharpe: 0.60, cagr: 0.30, mdd: -0.25, win: 67,
+    n: 2451, period: "10년", score: 75, verdict: "ok", crown: false,
+    note: "✅ IV > RV 일자 85.7%, IV-RV 평균 +3.70%. 21d straddle short" },
   { iter: "02", name: "✅ VIX Term Structure", logic: "📊 VIX 1m vs 3m contango",
-    edge: "Contango 92.2%", n: 2514, period: "10년", score: 65, verdict: "warn", crown: false,
-    note: "✅ Contango 92.2% 확인 (학술 정설), Skew 2.60 (vol spike fat tail). VIX 자체 거래 X" },
+    bt_sharpe: null, est_sharpe: null, cagr: null, mdd: null, win: 92,
+    n: 2514, period: "10년", score: 65, verdict: "warn", crown: false,
+    note: "✅ Contango 92.2%, Skew 2.60 (fat tail). VIX 자체 거래 X — 데이터 분석만" },
   { iter: "04", name: "⚠️ Put/Call Skew", logic: "📊 CBOE SKEW vs SPY future return",
-    edge: "+3.46% 30d (low skew)", n: 2459, period: "10년", score: 55, verdict: "warn", crown: false,
-    note: "⚠️ SKEW < 120 시 SPY 30d +3.46% (Win 75.9%). 현재 chain skew +21.5% (crash 공포 강함)" },
+    bt_sharpe: 0.85, est_sharpe: 0.34, cagr: 0.10, mdd: -0.20, win: 76,
+    n: 2459, period: "10년", score: 55, verdict: "warn", crown: false,
+    note: "⚠️ SKEW < 120 시 SPY 30d +3.46% (Win 75.9%). 현재 chain skew +21.5%" },
   { iter: "03", name: "❌ VXX/UVXY Short", logic: "📊 Vol ETF carry harvest 시도",
-    edge: "Sharpe 0.32, MDD -91%", n: 2075, period: "8년", score: 30, verdict: "bad", crown: false,
-    note: "❌ Daily rebal path-dependency 때문에 모두 실패 (Volmageddon 2018, 코로나 2020). MDD -91~99%" },
+    bt_sharpe: 0.32, est_sharpe: 0.13, cagr: -0.06, mdd: -0.91, win: 50,
+    n: 2075, period: "8년", score: 30, verdict: "bad", crown: false,
+    note: "❌ Daily rebal path-dependency (Volmageddon 2018, 코로나 2020) 모두 실패" },
   { iter: "06", name: "❌ PCC Signal", logic: "Put-Call Ratio → SPY future",
-    edge: null, n: 0, period: "—", score: 20, verdict: "bad", crown: false,
-    note: "❌ ^PCC / ^CPC 모두 yfinance에서 delisted (데이터 없음)" },
+    bt_sharpe: null, est_sharpe: null, cagr: null, mdd: null, win: null,
+    n: 0, period: "—", score: 20, verdict: "bad", crown: false,
+    note: "❌ ^PCC / ^CPC 모두 yfinance에서 delisted" },
 ];
 
 let sortKey = "score";
@@ -187,6 +197,11 @@ function verdictText(v) {
   return "❌ 실거래 부적합";
 }
 
+function fmt(v, dec=2, pct=false) {
+  if (v === null || v === undefined) return "—";
+  return pct ? (v*100).toFixed(dec)+"%" : v.toFixed(dec);
+}
+
 function render() {
   // 점수 내림차순 정렬
   const sorted = [...champions].sort((a, b) => b.score - a.score);
@@ -194,9 +209,12 @@ function render() {
   tbody.innerHTML = sorted.map(c => `
     <tr class="${c.crown ? 'crown-row' : ''}">
       <td class="iter ${c.crown ? 'crown' : ''}">${c.iter}</td>
-      <td><strong>${c.name}</strong></td>
-      <td style="color: var(--text-dim);">${c.logic}</td>
-      <td class="num ev">${c.edge || "—"}</td>
+      <td><strong>${c.name}</strong><br><span style="color: var(--text-dim); font-size: 11px;">${c.logic}</span></td>
+      <td class="num" style="color: var(--accent);">${fmt(c.bt_sharpe)}</td>
+      <td class="num ev">${fmt(c.est_sharpe)}</td>
+      <td class="num" style="color: var(--green);">${fmt(c.cagr, 1, true)}</td>
+      <td class="num" style="color: var(--red);">${fmt(c.mdd, 1, true)}</td>
+      <td class="num" style="color: var(--gold);">${c.win !== null && c.win !== undefined ? c.win + '%' : '—'}</td>
       <td class="num" style="color: var(--text-dim);">${c.n ? c.n.toLocaleString() : "—"}</td>
       <td class="num" style="color: var(--text-dim);">${c.period || "—"}</td>
       <td class="num"><span class="score ${scoreClass(c.score)}">${c.score}</span></td>
