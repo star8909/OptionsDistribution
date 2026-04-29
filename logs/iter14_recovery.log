@@ -1,0 +1,21 @@
+[iter14] VIX spike → SPY 회복 속도 분석
+  VIX spike 발화 (이전 평온): 8회
+
+=== VIX spike 후 SPY return 추이 ===
+  Spike date   5d 10d 21d 42d 63d 126d 180d
+
+  각 horizon 평균 return:
+  Horizon       N     Mean   Win%   Median
+  5d     8   +1.87%  87.5%   +1.83% 
+  10d     8   -0.16%  62.5%   +2.27% 
+  21d     8   +1.75%  75.0%   +4.17% 
+  42d     8   +4.33%  62.5%   +3.48% 
+  63d     8   +7.44%  75.0%   +6.57% 🚀
+  126d     8  +13.49%  75.0%  +17.76% 🚀
+  180d     8  +13.40%  75.0%  +12.02% 🚀
+
+=== VIX > 30 spike 후 < 20 회귀까지 평균 일수 ===
+  N: 8, 평균 50일, median 18일
+  분포: 30일 이내 75%, 90일 이내 88%
+
+  → C:\Projects\OptionsDistribution\results\iter14_vix_recovery.json
