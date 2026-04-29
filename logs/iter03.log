@@ -1,0 +1,29 @@
+[iter03] VXX/UVXY/VIXY short carry harvest
+
+=== VXX (2075 days, period 2018-01-26 ~ 2026-04-29) ===
+  Long: Sharpe=-0.32 CAGR=-39.2% MDD=-99.4%
+  Short (1x): Sharpe=0.32 CAGR=-5.7% MDD=-91.0%
+
+=== VIXY (2513 days, period 2016-05-02 ~ 2026-04-29) ===
+  Long: Sharpe=-0.54 CAGR=-47.6% MDD=-99.9%
+  Short (1x): Sharpe=0.54 CAGR=+11.7% MDD=-91.8%
+
+=== UVXY (2513 days, period 2016-05-02 ~ 2026-04-29) ===
+  Long: Sharpe=-0.62 CAGR=-73.4% MDD=-100.0%
+  Short (1x): Sharpe=0.62 CAGR=-3.6% MDD=-99.4%
+
+=== SVXY (2513 days, period 2016-05-02 ~ 2026-04-29) ===
+  Long: Sharpe=0.38 CAGR=-0.2% MDD=-95.2%
+  Short (1x): Sharpe=-0.38 CAGR=-26.4% MDD=-95.9%
+
+=== VXX short + DD stop 변형 ===
+  ❌ VXX short DD-10% lock30d: Sharpe=-0.35 CAGR=-11.4% MDD=-73.1%
+  ❌ VXX short DD-10% lock63d: Sharpe=-0.28 CAGR=-9.0% MDD=-63.3%
+  ⚠️ VXX short DD-15% lock63d: Sharpe=0.14 CAGR=-0.6% MDD=-64.9%
+  ❌ VXX short DD-20% lock90d: Sharpe=-0.44 CAGR=-16.2% MDD=-80.8%
+  ❌ VXX short DD-25% lock90d: Sharpe=-0.47 CAGR=-21.3% MDD=-86.2%
+
+=== SVXY (-0.5x VXX) long ===
+  Long SVXY: Sharpe=0.38 CAGR=-0.2% MDD=-95.2%
+
+  → C:\Projects\OptionsDistribution\results\iter03_vxx_short.json
