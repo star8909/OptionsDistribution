@@ -1,0 +1,12 @@
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: ^PCC"}}}
+$^PCC: possibly delisted; no price data found  (period=20y) (Yahoo error = "No data found, symbol may be delisted")
+
+1 Failed download:
+['^PCC']: possibly delisted; no price data found  (period=20y) (Yahoo error = "No data found, symbol may be delisted")
+HTTP Error 404: {"quoteSummary":{"result":null,"error":{"code":"Not Found","description":"Quote not found for symbol: ^CPC"}}}
+$^CPC: possibly delisted; no price data found  (period=20y) (Yahoo error = "No data found, symbol may be delisted")
+
+1 Failed download:
+['^CPC']: possibly delisted; no price data found  (period=20y) (Yahoo error = "No data found, symbol may be delisted")
+[iter06] Put-Call Ratio → SPY future return
+  ❌ PCC 데이터 없음

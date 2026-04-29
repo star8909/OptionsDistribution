@@ -72,18 +72,18 @@
 <h1>📊 OptionsDistribution 챔피언 대시보드</h1>
 <div class="subtitle">옵션 시장 — IV vs RV / Strike Calibration / Term Structure / Skew Anomaly</div>
 <nav class="project-nav">
-  <a href="../../ProbabilityDistribution/dashboard/index.html">📈 ProbabilityDistribution</a>
-  <a href="../../EquityDistribution/dashboard/index.html">📊 EquityDistribution</a>
-  <a href="../../FuturesDistribution/dashboard/index.html">🎯 FuturesDistribution</a>
-  <a href="../../polymarket-analyze/dashboard/index.html">🎲 polymarket-analyze</a>
-  <a class="active">📊 OptionsDistribution</a>
+  <a href="../../ProbabilityDistribution/dashboard/index.html">📈 ProbabilityDistribution (암호화폐)</a>
+  <a href="../../EquityDistribution/dashboard/index.html">📊 EquityDistribution (해외주식)</a>
+  <a href="../../FuturesDistribution/dashboard/index.html">🎯 FuturesDistribution (해외선물옵션)</a>
+  <a href="../../polymarket-analyze/dashboard/index.html">🎲 polymarket-analyze (예측시장)</a>
+  <a class="active">📊 OptionsDistribution (옵션)</a>
 </nav>
 
 <div class="stats">
-  <div class="stat-card"><div class="stat-label">상태</div><div class="stat-value gold" style="font-size:18px">초기 분석</div></div>
-  <div class="stat-card"><div class="stat-label">데이터</div><div class="stat-value" style="font-size:14px">VIX + SPY 10y</div></div>
-  <div class="stat-card"><div class="stat-label">최강 발견</div><div class="stat-value green">VRP Sharpe 1.51</div></div>
-  <div class="stat-card"><div class="stat-label">진행 중</div><div class="stat-value" style="font-size:14px">iter01 baseline</div></div>
+  <div class="stat-card"><div class="stat-label">총 iter</div><div class="stat-value gold">5</div></div>
+  <div class="stat-card"><div class="stat-label">데이터</div><div class="stat-value" style="font-size:14px">VIX/SPY 20년</div></div>
+  <div class="stat-card"><div class="stat-label">최고 신호</div><div class="stat-value green" style="font-size:14px">iter07 +33% Win 100%</div></div>
+  <div class="stat-card"><div class="stat-label">메인 챔</div><div class="stat-value gold" style="font-size:14px">iter07 panic bottom</div></div>
 </div>
 
 <div class="formula">
@@ -148,21 +148,27 @@
 
 <script>
 const champions = [
-  { iter: "01", name: "✅ IV-RV Gap (Vol Risk Premium)", logic: "📊 VIX vs SPY 21d realized vol gap (10년)",
-    edge: "Sharpe 1.51", n: 2451, period: "10y", score: 75, verdict: "ok", crown: false,
-    note: "✅ IV > RV 일자 85.7%, IV-RV 평균 +3.70%. 21d straddle short Sharpe 1.51" },
-  { iter: "02", name: "✅ VIX Term Structure", logic: "VIX 1m vs 3m contango",
-    edge: "Contango 92.2%", n: 2514, period: "10y", score: 60, verdict: "warn", crown: false,
-    note: "✅ Contango 92.2% 확인 (학술 정설), Skew 2.60 (vol spike fat tail)" },
-  { iter: "03", name: "❌ VXX/UVXY Short", logic: "Vol ETF carry harvest 시도",
-    edge: "Sharpe 0.32", n: 2075, period: "8y", score: 30, verdict: "bad", crown: false,
-    note: "❌ Daily rebal path-dependency로 모두 실패. MDD -91~99%" },
-  { iter: "04", name: "⚠️ Put/Call Skew", logic: "CBOE SKEW vs SPY future return",
-    edge: "+3.46% 30d (low skew)", n: 2459, period: "10y", score: 55, verdict: "warn", crown: false,
-    note: "⚠️ SKEW < 120 시 SPY 30d +3.46% / 현재 chain skew +21.5% (강한 crash 공포)" },
-  { iter: "05", name: "🏆 VIX Regime → SPY (NEW BEST)", logic: "📈 VIX > 30 시 SPY long 6개월",
-    edge: "+24% / 180d (Win 84%)", n: 152, period: "20y", score: 95, verdict: "ok", crown: true,
-    note: "🏆 VIX > 30 → SPY 180d +23.7% (win 84.2%). VIX > 40 → +41.1% (win 100%). 학술 tail risk premium" },
+  { iter: "07", name: "🏆 Panic Bottom (DD×VIX joint)", logic: "📈 SPY -20%+ DD AND VIX > 30 → 6개월 long",
+    edge: "+33.2% / 180d (Win 100%)", n: 40, period: "20년", score: 100, verdict: "ok", crown: true,
+    note: "🏆🏆 학술 정설 강력 확인! DD<-20% × VIX>30 panic 신호 시 6개월 평균 +33%, 승률 100%" },
+  { iter: "05", name: "🚀 VIX Regime (단순)", logic: "📊 VIX > 30 시 SPY long 6개월",
+    edge: "+23.7% / 180d (Win 84%)", n: 152, period: "20년", score: 92, verdict: "ok", crown: false,
+    note: "🚀 VIX > 30 → SPY 180d +23.7%. VIX > 40 → +41.1%, 승률 100%. Tail risk premium" },
+  { iter: "01", name: "✅ IV-RV Gap (Vol Risk Premium)", logic: "📊 VIX vs SPY 21d 실현 변동성 gap (10년)",
+    edge: "Sharpe 1.51", n: 2451, period: "10년", score: 75, verdict: "ok", crown: false,
+    note: "✅ IV > RV 일자 85.7%, IV-RV 평균 +3.70%. 21d straddle short Sharpe 1.51 (학술 정설)" },
+  { iter: "02", name: "✅ VIX Term Structure", logic: "📊 VIX 1m vs 3m contango",
+    edge: "Contango 92.2%", n: 2514, period: "10년", score: 65, verdict: "warn", crown: false,
+    note: "✅ Contango 92.2% 확인 (학술 정설), Skew 2.60 (vol spike fat tail). VIX 자체 거래 X" },
+  { iter: "04", name: "⚠️ Put/Call Skew", logic: "📊 CBOE SKEW vs SPY future return",
+    edge: "+3.46% 30d (low skew)", n: 2459, period: "10년", score: 55, verdict: "warn", crown: false,
+    note: "⚠️ SKEW < 120 시 SPY 30d +3.46% (Win 75.9%). 현재 chain skew +21.5% (crash 공포 강함)" },
+  { iter: "03", name: "❌ VXX/UVXY Short", logic: "📊 Vol ETF carry harvest 시도",
+    edge: "Sharpe 0.32, MDD -91%", n: 2075, period: "8년", score: 30, verdict: "bad", crown: false,
+    note: "❌ Daily rebal path-dependency 때문에 모두 실패 (Volmageddon 2018, 코로나 2020). MDD -91~99%" },
+  { iter: "06", name: "❌ PCC Signal", logic: "Put-Call Ratio → SPY future",
+    edge: null, n: 0, period: "—", score: 20, verdict: "bad", crown: false,
+    note: "❌ ^PCC / ^CPC 모두 yfinance에서 delisted (데이터 없음)" },
 ];
 
 let sortKey = "score";
@@ -182,8 +188,10 @@ function verdictText(v) {
 }
 
 function render() {
+  // 점수 내림차순 정렬
+  const sorted = [...champions].sort((a, b) => b.score - a.score);
   const tbody = document.getElementById("tbody");
-  tbody.innerHTML = champions.map(c => `
+  tbody.innerHTML = sorted.map(c => `
     <tr class="${c.crown ? 'crown-row' : ''}">
       <td class="iter ${c.crown ? 'crown' : ''}">${c.iter}</td>
       <td><strong>${c.name}</strong></td>
