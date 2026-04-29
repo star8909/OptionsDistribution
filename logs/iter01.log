@@ -1,0 +1,31 @@
+[iter01] IV vs RV gap baseline (Vol Risk Premium)
+  SPY: 2514 days / VIX: 2514 days
+
+=== IV (VIX) vs SPY RV gap (10년) ===
+  N: 2451
+  VIX 평균: 18.62%
+  RV 21d 평균: 14.92%
+  IV - RV21 평균: +3.70%
+  IV - RV63 평균: +3.01%
+  IV > RV21 일자 비율: 85.7%
+  IV > RV21 by 5%+ 일자: 41.0%
+
+  IV/RV 비율 평균: 1.44x
+  IV/RV > 1.5x 일자: 38.7%
+  IV/RV < 0.8x 일자 (RV이 IV 능가, vol spike): 4.6%
+
+=== Vol Risk Premium 시뮬레이션 ===
+  hold 21d: avg premium +3.61%, std 8.31%, approx Sharpe 1.51
+  hold 42d: avg premium +3.12%, std 8.92%, approx Sharpe 0.86
+  hold 63d: avg premium +2.82%, std 9.25%, approx Sharpe 0.61
+
+=== IV-RV21 분포 (벨 형태) ===
+  (-15, -10]           N=   16 (  0.7%) 
+  (-10, -5]            N=   63 (  2.6%) ██
+  (-5, 0]              N=  233 (  9.5%) █████████
+  (0, 5]               N= 1097 ( 44.8%) ████████████████████████████████████████████
+  (5, 10]              N=  798 ( 32.6%) ████████████████████████████████
+  (10, 15]             N=  167 (  6.8%) ██████
+  (15, 30]             N=   39 (  1.6%) █
+
+  → C:\Projects\OptionsDistribution\results\iter01_iv_rv_gap.json
