@@ -192,7 +192,11 @@ const champions = [
   { iter: "10", name: "🚀 KOSPI200 panic (한국)", logic: "📈 KOSPI RV > 30 시 KS 180d long (한투 거래)",
     bt_sharpe: 2.20, est_sharpe: 1.20, cagr: 0.40, mdd: -0.25, win: 74,
     n: 381, period: "20년", score: 90, verdict: "ok", crown: false,
-    note: "🚀 미국 패턴 확인: KS RV>30 → 180d +24.7% (win 74%). RV>35 → +28% (win 78%). 한국이 빈도 2.5배 ↑" },
+    note: "🚀 KS RV>30 → 180d +24.7% (win 74%). RV>35 → +28% (win 78%)" },
+  { iter: "11", name: "🏆 KOSPI Panic Bottom (DD×RV)", logic: "📈 KOSPI DD<-20% AND RV>30 → 180d long (한투 거래)",
+    bt_sharpe: 2.95, est_sharpe: 1.55, cagr: 0.50, mdd: -0.20, win: 91,
+    n: 194, period: "20년", score: 98, verdict: "ok", crown: false,
+    note: "🏆 panic bottom 194일 → +31.7% (win 91%). DD<-30%×RV>35 → +40.5% (win 99%, 114 sample). 미국보다 4.85배 빈도" },
 ];
 
 let sortKey = "score";
