@@ -1,0 +1,22 @@
+[iter09] FOMC 일자 효과 분석
+  FOMC 일자 매칭: 76 / 96
+
+=== FOMC day SPY return ===
+  N: 76
+  평균 SPY 1d: +0.099%
+  std: 1.111%
+  양수 비율: 48.7%
+  평균 VIX change: -0.143
+
+=== 비교: 비-FOMC day ===
+  평균 SPY 1d: +0.061%
+  std: 1.131%
+
+=== FOMC 후 SPY return ===
+  +5d: 평균 +0.02% (win 52.6%) [N=76]
+  +21d: 평균 +1.40% (win 69.7%) [N=76]
+
+=== FOMC 5d 직전 ===
+  평균 +0.34% (win 64.5%) [N=76]
+
+  → C:\Projects\OptionsDistribution\results\iter09_fomc.json

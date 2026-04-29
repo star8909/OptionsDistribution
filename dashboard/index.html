@@ -181,6 +181,18 @@ const champions = [
     bt_sharpe: null, est_sharpe: null, cagr: null, mdd: null, win: null,
     n: 0, period: "—", score: 20, verdict: "bad", crown: false,
     note: "❌ ^PCC / ^CPC 모두 yfinance에서 delisted" },
+  { iter: "08", name: "⚠️ VIX9D > VIX 단기 panic", logic: "📊 VIX9D/VIX > 1.10 → SPY 21d mean reversion",
+    bt_sharpe: 0.95, est_sharpe: 0.40, cagr: 0.12, mdd: -0.18, win: 69,
+    n: 155, period: "20년", score: 60, verdict: "warn", crown: false,
+    note: "⚠️ ratio > 1.10 → SPY 21d +2.29% (win 69%). ratio > 1.20 → +2.98%. 약한 mean reversion" },
+  { iter: "09", name: "✅ FOMC 일자 효과", logic: "📅 FOMC 8회/년 직후 SPY drift",
+    bt_sharpe: 0.50, est_sharpe: 0.20, cagr: 0.06, mdd: -0.20, win: 70,
+    n: 76, period: "12년", score: 50, verdict: "warn", crown: false,
+    note: "⚠️ FOMC +21d 평균 +1.40% (win 70%). 미세하지만 일관" },
+  { iter: "10", name: "🚀 KOSPI200 panic (한국)", logic: "📈 KOSPI RV > 30 시 KS 180d long (한투 거래)",
+    bt_sharpe: 2.20, est_sharpe: 1.20, cagr: 0.40, mdd: -0.25, win: 74,
+    n: 381, period: "20년", score: 90, verdict: "ok", crown: false,
+    note: "🚀 미국 패턴 확인: KS RV>30 → 180d +24.7% (win 74%). RV>35 → +28% (win 78%). 한국이 빈도 2.5배 ↑" },
 ];
 
 let sortKey = "score";

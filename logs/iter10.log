@@ -1,0 +1,24 @@
+[iter10] KOSPI200 vol analysis
+  KS200/KS11: 4879 days
+
+=== KOSPI 통계 (20년) ===
+  N: 4816
+  RV 21d 평균: 18.67%
+  RV 63d 평균: 18.97%
+  RV 21d std: 10.81%
+  RV 21d max: 89.06%
+
+=== KOSPI vs SPY RV 비교 ===
+  KOSPI RV 21d 평균: 18.67%
+  SPY RV 21d 평균: 14.91%
+
+=== KOSPI RV regime → future return ===
+  RV (0, 12]: N=1115, 60d +0.35%, 180d +1.67%, win 49.1%  
+  RV (12, 18]: N=1771, 60d +1.08%, 180d +5.66%, win 55.6%  
+  RV (18, 25]: N=1140, 60d +2.18%, 180d +9.21%, win 60.4%  🚀 LONG
+  RV (25, 35]: N=348, 60d +3.45%, 180d +8.88%, win 58.0%  🚀 LONG
+  RV (35, 100]: N=262, 60d +7.75%, 180d +28.35%, win 77.9%  🚀 LONG
+
+  KS RV > 30 (panic) 381일 → KS 180d +24.7% (win 74.0%)
+
+  → C:\Projects\OptionsDistribution\results\iter10_kospi200.json
