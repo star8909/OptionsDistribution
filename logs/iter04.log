@@ -1,0 +1,30 @@
+[iter04] Put/Call skew anomaly
+
+=== CBOE SKEW Index 10년 ===
+  N: 2459
+  평균: 135.71
+  std: 12.41
+  min: 110.34 (skew 약함, crash 공포 ↓)
+  max: 183.12 (skew 강함, crash 공포 ↑)
+  현재값: 138.16
+  현재 percentile: 58.1%
+  SKEW > 140 (panic) 비율: 35.8%
+  SKEW < 110 (calm) 비율: 0.0%
+
+=== SKEW level vs SPY 30d future return ===
+  SKEW 100-120: N= 257 | SPY 30d return 평균 +3.46% | 양수 비율 75.9%
+  SKEW 120-130: N= 613 | SPY 30d return 평균 +1.54% | 양수 비율 69.7%
+  SKEW 130-140: N= 707 | SPY 30d return 평균 +1.96% | 양수 비율 72.6%
+  SKEW 140-150: N= 570 | SPY 30d return 평균 +1.62% | 양수 비율 68.1%
+  SKEW 150-200: N= 312 | SPY 30d return 평균 +1.02% | 양수 비율 68.9%
+
+=== SPY 현재 chain skew snapshot ===
+  SPY 현재가: $710.60
+  Expiration: 2026-04-29
+  ATM Call IV: 12.7%
+  ATM Put IV: 9.3%
+  OTM Put avg IV (-5%~): 81.8%
+  OTM Call avg IV (+5%~): 60.3%
+  Skew (Put - Call): +21.5%
+
+  → C:\Projects\OptionsDistribution\results\iter04_skew.json

@@ -148,9 +148,21 @@
 
 <script>
 const champions = [
-  { iter: "01", name: "🚀 IV-RV Gap (Vol Risk Premium)", logic: "📊 VIX vs SPY 21d/63d realized vol gap (10년)",
-    edge: "Sharpe 1.51", n: 2451, period: "10y", score: 75, verdict: "ok", crown: true,
-    note: "🏆 IV > RV 일자 85.7%, IV-RV 평균 +3.70%. 21d straddle short Sharpe 1.51 (학술 정설 확인)" },
+  { iter: "01", name: "✅ IV-RV Gap (Vol Risk Premium)", logic: "📊 VIX vs SPY 21d realized vol gap (10년)",
+    edge: "Sharpe 1.51", n: 2451, period: "10y", score: 75, verdict: "ok", crown: false,
+    note: "✅ IV > RV 일자 85.7%, IV-RV 평균 +3.70%. 21d straddle short Sharpe 1.51" },
+  { iter: "02", name: "✅ VIX Term Structure", logic: "VIX 1m vs 3m contango",
+    edge: "Contango 92.2%", n: 2514, period: "10y", score: 60, verdict: "warn", crown: false,
+    note: "✅ Contango 92.2% 확인 (학술 정설), Skew 2.60 (vol spike fat tail)" },
+  { iter: "03", name: "❌ VXX/UVXY Short", logic: "Vol ETF carry harvest 시도",
+    edge: "Sharpe 0.32", n: 2075, period: "8y", score: 30, verdict: "bad", crown: false,
+    note: "❌ Daily rebal path-dependency로 모두 실패. MDD -91~99%" },
+  { iter: "04", name: "⚠️ Put/Call Skew", logic: "CBOE SKEW vs SPY future return",
+    edge: "+3.46% 30d (low skew)", n: 2459, period: "10y", score: 55, verdict: "warn", crown: false,
+    note: "⚠️ SKEW < 120 시 SPY 30d +3.46% / 현재 chain skew +21.5% (강한 crash 공포)" },
+  { iter: "05", name: "🏆 VIX Regime → SPY (NEW BEST)", logic: "📈 VIX > 30 시 SPY long 6개월",
+    edge: "+24% / 180d (Win 84%)", n: 152, period: "20y", score: 95, verdict: "ok", crown: true,
+    note: "🏆 VIX > 30 → SPY 180d +23.7% (win 84.2%). VIX > 40 → +41.1% (win 100%). 학술 tail risk premium" },
 ];
 
 let sortKey = "score";
