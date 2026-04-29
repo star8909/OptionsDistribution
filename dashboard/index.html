@@ -42,6 +42,8 @@
   table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 1100px; }
   th { background: #21262d; color: var(--text-dim); text-align: left; padding: 10px 12px; font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; white-space: nowrap; }
   th:hover { color: var(--text); }
+  th.sort-asc::after { content: ' ▲'; color: var(--accent); }
+  th.sort-desc::after { content: ' ▼'; color: var(--accent); }
   td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
   tr:nth-child(even) td { background: var(--bg-row-alt); }
   tr:nth-child(odd) td { background: var(--bg-row); }
@@ -99,17 +101,17 @@
   <table id="table">
     <thead>
       <tr>
-        <th>iter</th>
-        <th>전략</th>
-        <th class="num">BT Sharpe</th>
-        <th class="num">실거래 Sharpe</th>
-        <th class="num">CAGR</th>
-        <th class="num">MDD</th>
-        <th class="num">승률</th>
-        <th class="num">N</th>
-        <th class="num">기간</th>
-        <th class="num">점수</th>
-        <th>판정</th>
+        <th data-key="iter">iter</th>
+        <th data-key="name">전략</th>
+        <th data-key="bt_sharpe" class="num">BT Sharpe</th>
+        <th data-key="est_sharpe" class="num">실거래 Sharpe</th>
+        <th data-key="cagr" class="num">CAGR</th>
+        <th data-key="mdd" class="num">MDD</th>
+        <th data-key="win" class="num">승률</th>
+        <th data-key="n" class="num">N</th>
+        <th data-key="period" class="num">기간</th>
+        <th data-key="score" class="num sort-desc">점수</th>
+        <th data-key="verdict">판정</th>
         <th>비고</th>
       </tr>
     </thead>
@@ -202,9 +204,18 @@ function fmt(v, dec=2, pct=false) {
   return pct ? (v*100).toFixed(dec)+"%" : v.toFixed(dec);
 }
 
+let sortKey = "score";
+let sortDesc = true;
+
 function render() {
-  // 점수 내림차순 정렬
-  const sorted = [...champions].sort((a, b) => b.score - a.score);
+  const sorted = [...champions].sort((a, b) => {
+    const x = a[sortKey], y = b[sortKey];
+    // null/undefined 항상 뒤로
+    if (x === null || x === undefined) return 1;
+    if (y === null || y === undefined) return -1;
+    if (typeof x === "number" && typeof y === "number") return sortDesc ? y - x : x - y;
+    return sortDesc ? String(y).localeCompare(String(x)) : String(x).localeCompare(String(y));
+  });
   const tbody = document.getElementById("tbody");
   tbody.innerHTML = sorted.map(c => `
     <tr class="${c.crown ? 'crown-row' : ''}">
@@ -222,7 +233,23 @@ function render() {
       <td style="font-size: 12px; color: var(--text-dim);">${c.note || ""}</td>
     </tr>
   `).join("");
+
+  document.querySelectorAll("th").forEach(th => {
+    th.classList.remove("sort-asc", "sort-desc");
+    if (th.dataset.key === sortKey) {
+      th.classList.add(sortDesc ? "sort-desc" : "sort-asc");
+    }
+  });
 }
+
+document.querySelectorAll("th[data-key]").forEach(th => {
+  th.addEventListener("click", () => {
+    const key = th.dataset.key;
+    if (key === sortKey) sortDesc = !sortDesc;
+    else { sortKey = key; sortDesc = true; }
+    render();
+  });
+});
 
 render();
 </script>
