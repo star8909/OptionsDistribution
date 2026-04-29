@@ -204,9 +204,6 @@ function fmt(v, dec=2, pct=false) {
   return pct ? (v*100).toFixed(dec)+"%" : v.toFixed(dec);
 }
 
-let sortKey = "score";
-let sortDesc = true;
-
 function render() {
   const sorted = [...champions].sort((a, b) => {
     const x = a[sortKey], y = b[sortKey];
