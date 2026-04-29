@@ -1,0 +1,35 @@
+[iter02] VIX term structure carry harvest
+  VIX: 2514 days
+  VIX3M: 2514 days
+  VIX9D: 2514 days
+
+=== VIX term structure (1m vs 3m, 2514 days) ===
+  VIX 1m 평균: 18.54
+  VIX 3m 평균: 20.51
+  Spread (3m - 1m) 평균: +1.97
+  Ratio (3m / 1m) 평균: 1.131
+  Contango 일자 (3m > 1m): 92.2%
+  Backwardation 일자 (3m < 1m): 7.8%
+  Strong contango (ratio > 1.10): 64.3%
+  Strong backwardation (ratio < 0.90, vol spike): 1.8%
+
+=== Contango harvest (VIX short on contango days) ===
+  N days: 2513
+  Mean daily PnL: -0.479%
+  Std daily PnL: 7.393%
+  Sharpe: -1.03
+  CAGR: -86.8%
+  MDD: -100.0%
+
+=== VIX 1d return 분포 ===
+  Mean: +0.343%
+  Std: 8.638%
+  Skew: 2.60 (양수 큰 → 우측 fat tail = vol spike up)
+  Kurtosis: 20.89
+
+=== VIX9D / VIX 1m 비율 (단기 vs 한달) ===
+  Ratio 평균: 0.936
+  Ratio > 1.10 (단기 panic): 6.2%
+  Ratio > 1.20 (severe panic): 2.0%
+
+  → C:\Projects\OptionsDistribution\results\iter02_term_structure.json
