@@ -1,0 +1,16 @@
+[iter12] 미국 + 한국 panic bottom 결합
+  Joined: 2369 days
+
+=== Panic 신호 비교 ===
+  US panic only: 21일
+  KR panic only: 2일
+  Both panic: 17일
+  Either panic: 41일
+
+=== Both panic 신호 (강한 확신) ===
+  SPY 180d: +49.7% (win 100.0%)
+  KS 180d: +64.3% (win 100.0%)
+  50/50 portfolio: +57.0% (win 100.0%)
+  US panic only (21일): SPY 180d +21.0% (win 100.0%)
+
+  → C:\Projects\OptionsDistribution\results\iter12_combined_panic.json
