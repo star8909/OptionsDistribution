@@ -1,0 +1,22 @@
+[iter15] VIX 다양한 threshold 종합 비교
+
+=== VIX Threshold 종합 (180d future) ===
+  Threshold           N     Mean   Win%  Sharpe
+  VIX > 15      1455  +11.40%  82.3%   1.21  🚀
+  VIX > 18       982  +13.16%  83.0%   1.32  🚀
+  VIX > 20       738  +14.77%  83.9%   1.43  🚀
+  VIX > 22       546  +16.55%  85.3%   1.56  🚀
+  VIX > 25       350  +18.90%  86.0%   1.70  🚀
+  VIX > 27       259  +19.94%  83.8%   1.67  🚀
+  VIX > 30       152  +23.67%  84.2%   1.92  🚀
+  VIX > 35        61  +35.08%  96.7%   3.62  🚀
+  VIX > 40        39  +41.11% 100.0%   5.68  🚀
+
+=== VIX 낮은 threshold 후 SPY (over-confidence) ===
+  Threshold           N  180d mean   Win%
+  VIX < 10        59    +10.05% 100.0%  
+  VIX < 12       265    +10.93%  98.1%  
+  VIX < 14       712    +10.33%  94.1%  
+  VIX < 16      1043    +10.20%  92.6%  
+
+  → C:\Projects\OptionsDistribution\results\iter15_simple_strategies.json
