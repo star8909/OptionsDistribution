@@ -82,10 +82,10 @@
 </nav>
 
 <div class="stats">
-  <div class="stat-card"><div class="stat-label">총 iter</div><div class="stat-value gold">17</div></div>
+  <div class="stat-card"><div class="stat-label">총 iter</div><div class="stat-value gold">18</div></div>
   <div class="stat-card"><div class="stat-label">데이터</div><div class="stat-value" style="font-size:14px">VIX/VVIX/SPY/KOSPI 20년</div></div>
-  <div class="stat-card"><div class="stat-label">최고 신호</div><div class="stat-value green" style="font-size:14px">iter17 Sharpe 7.17 Win 100%</div></div>
-  <div class="stat-card"><div class="stat-label">메인 챔</div><div class="stat-value gold" style="font-size:14px">iter17 VIX×VVIX double panic</div></div>
+  <div class="stat-card"><div class="stat-label">최고 신호</div><div class="stat-value green" style="font-size:14px">iter18 Sharpe 8.86 Win 100%</div></div>
+  <div class="stat-card"><div class="stat-label">메인 챔</div><div class="stat-value gold" style="font-size:14px">iter18 VIX×VVIX×DD triple panic</div></div>
 </div>
 
 <div class="formula">
@@ -217,10 +217,14 @@ const champions = [
     bt_sharpe: 1.62, est_sharpe: 0.80, cagr: 0.30, mdd: -0.20, win: 94,
     n: 33, period: "10년", score: 95, verdict: "ok", crown: false,
     note: "🚀 VVIX>130 → 21d +5.75% Win 86%. VVIX>150 → 21d +9.74% Win 93.9% / 180d +28.49% Sharpe 1.62. 단기 신호 강력" },
-  { iter: "17", name: "🏆🏆 VIX × VVIX double panic", logic: "📈 VIX>40 AND VVIX>150 → SPY 180d long",
+  { iter: "17", name: "🏆 VIX × VVIX double panic", logic: "📈 VIX>40 AND VVIX>150 → SPY 180d long",
     bt_sharpe: 7.17, est_sharpe: 3.50, cagr: 0.65, mdd: -0.18, win: 100,
+    n: 19, period: "10년", score: 98, verdict: "ok", crown: false,
+    note: "🚀 VIX>40 AND VVIX>150 (19일): 180d +47.49% Win 100% Sharpe 7.17. 21d +14.05% Win 100%. VIX>35×VVIX>140 (34일): Sharpe 4.30 Win 100%. iter12 US+KR과 동일한 'double extreme' 원리" },
+  { iter: "18", name: "🏆🏆 VIX × VVIX × DD triple panic", logic: "📈 VIX>35 AND VVIX>130 AND DD<-20% → SPY 180d long",
+    bt_sharpe: 8.86, est_sharpe: 4.20, cagr: 0.70, mdd: -0.15, win: 100,
     n: 19, period: "10년", score: 100, verdict: "ok", crown: true,
-    note: "🏆🏆 신 챔! VIX>40 AND VVIX>150 (19일): 180d +47.49% Win 100% Sharpe 7.17. 21d +14.05% Win 100%. VIX>35×VVIX>140 (34일): Sharpe 4.30 Win 100%. iter12 US+KR과 동일한 'double extreme' 원리" },
+    note: "🏆🏆 신 챔 (Sharpe 8.86)! VIX>35 VVIX>130 DD<-20% (19일): 180d +49.25% Win 100%. VIX>40 VVIX>150 DD<-20% (15일): +50.42% Win 100% Sharpe 8.73. 21d +14.63%. iter17 double panic + DD 추가 = triple confirmation" },
 ];
 
 let sortKey = "score";
