@@ -1,0 +1,32 @@
+[iter19] VIX9D > VIX term inversion + DD
+  데이터: 2514 days, ratio range 0.66~1.59
+
+=== Term inversion (ratio > 1.X) 단독 (180d) ===
+  ratio>1.00: N= 568 180d  +13.35% Win  85.4% Sharpe  1.45 🚀
+  ratio>1.05: N= 302 180d  +14.31% Win  87.7% Sharpe  1.52 🚀
+  ratio>1.10: N= 155 180d  +18.32% Win  94.8% Sharpe  1.85 🚀
+  ratio>1.15: N=  88 180d  +20.53% Win  95.5% Sharpe  1.80 🚀
+  ratio>1.20: N=  51 180d  +25.79% Win 100.0% Sharpe  2.23 🚀
+  ratio>1.30: N=  10 180d  +20.23% Win 100.0% Sharpe  2.10 🚀
+
+=== Term inversion + DD (180d) ===
+  ratio>1.05 DD<-10%: N=117 180d  +20.17% Win  91.5% Sharpe  1.84 
+  ratio>1.1 DD<-10%: N= 65 180d  +26.03% Win  96.9% Sharpe  2.34 🚀
+  ratio>1.1 DD<-15%: N= 41 180d  +31.11% Win 100.0% Sharpe  2.69 🚀
+  ratio>1.15 DD<-10%: N= 36 180d  +31.84% Win 100.0% Sharpe  2.80 🚀
+  ratio>1.15 DD<-15%: N= 25 180d  +36.38% Win 100.0% Sharpe  3.07 🚀
+  ratio>1.2 DD<-10%: N= 25 180d  +37.04% Win 100.0% Sharpe  3.20 🚀
+  ratio>1.2 DD<-15%: N= 18 180d  +43.18% Win 100.0% Sharpe  4.19 🚀
+  ratio>1.2 DD<-20%: N= 11 180d  +51.80% Win 100.0% Sharpe  8.50 🚀
+
+=== Term inversion + DD (21d) ===
+  ratio>1.05 DD<-10%: N=117 21d  +4.04% Win  71.8% 
+  ratio>1.1 DD<-10%: N= 65 21d  +4.70% Win  70.8% 
+  ratio>1.1 DD<-15%: N= 41 21d  +7.86% Win  82.9% 
+  ratio>1.15 DD<-10%: N= 36 21d  +5.19% Win  66.7% 
+  ratio>1.15 DD<-15%: N= 25 21d  +9.25% Win  80.0% 
+  ratio>1.2 DD<-10%: N= 25 21d  +6.18% Win  68.0% 
+  ratio>1.2 DD<-15%: N= 18 21d +11.11% Win  83.3% 
+  ratio>1.2 DD<-20%: N= 11 21d +15.19% Win 100.0% 🚀
+
+  → C:\Projects\OptionsDistribution\results\iter19_term_inversion.json
