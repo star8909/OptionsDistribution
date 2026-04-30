@@ -1,0 +1,20 @@
+[iter21] US (VIX×VVIX) + KR (KOSPI panic) cross-market
+  Joined: 2362 days
+
+=== Both panic (US+KR) ===
+  N=19
+  SPY 180d: +48.40% Win 100.0%
+  KS  180d: +64.17% Win 100.0%
+  50/50: +56.28% Win 100.0%
+
+=== Both panic STRONG (US strong + KR) ===
+  N=19
+  SPY 180d: +48.40% Win 100.0%
+  KS  180d: +64.17% Win 100.0%
+  50/50: +56.28% Win 100.0%
+  Sharpe: 9.77
+
+=== Both panic (21d 단기) ===
+  Both 21d 50/50: +12.27% Win 100.0%
+
+  → C:\Projects\OptionsDistribution\results\iter21_us_kr_vvix.json
