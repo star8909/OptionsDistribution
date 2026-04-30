@@ -82,10 +82,10 @@
 </nav>
 
 <div class="stats">
-  <div class="stat-card"><div class="stat-label">총 iter</div><div class="stat-value gold">18</div></div>
+  <div class="stat-card"><div class="stat-label">총 iter</div><div class="stat-value gold">21</div></div>
   <div class="stat-card"><div class="stat-label">데이터</div><div class="stat-value" style="font-size:14px">VIX/VVIX/SPY/KOSPI 20년</div></div>
-  <div class="stat-card"><div class="stat-label">최고 신호</div><div class="stat-value green" style="font-size:14px">iter18 Sharpe 8.86 Win 100%</div></div>
-  <div class="stat-card"><div class="stat-label">메인 챔</div><div class="stat-value gold" style="font-size:14px">iter18 VIX×VVIX×DD triple panic</div></div>
+  <div class="stat-card"><div class="stat-label">최고 신호</div><div class="stat-value green" style="font-size:14px">iter21 Sharpe 9.77 Win 100%</div></div>
+  <div class="stat-card"><div class="stat-label">메인 챔</div><div class="stat-value gold" style="font-size:14px">iter21 US+KR cross-market panic</div></div>
 </div>
 
 <div class="formula">
@@ -221,10 +221,22 @@ const champions = [
     bt_sharpe: 7.17, est_sharpe: 3.50, cagr: 0.65, mdd: -0.18, win: 100,
     n: 19, period: "10년", score: 98, verdict: "ok", crown: false,
     note: "🚀 VIX>40 AND VVIX>150 (19일): 180d +47.49% Win 100% Sharpe 7.17. 21d +14.05% Win 100%. VIX>35×VVIX>140 (34일): Sharpe 4.30 Win 100%. iter12 US+KR과 동일한 'double extreme' 원리" },
-  { iter: "18", name: "🏆🏆 VIX × VVIX × DD triple panic", logic: "📈 VIX>35 AND VVIX>130 AND DD<-20% → SPY 180d long",
+  { iter: "18", name: "🏆 VIX × VVIX × DD triple panic", logic: "📈 VIX>35 AND VVIX>130 AND DD<-20% → SPY 180d long",
     bt_sharpe: 8.86, est_sharpe: 4.20, cagr: 0.70, mdd: -0.15, win: 100,
-    n: 19, period: "10년", score: 100, verdict: "ok", crown: true,
-    note: "🏆🏆 신 챔 (Sharpe 8.86)! VIX>35 VVIX>130 DD<-20% (19일): 180d +49.25% Win 100%. VIX>40 VVIX>150 DD<-20% (15일): +50.42% Win 100% Sharpe 8.73. 21d +14.63%. iter17 double panic + DD 추가 = triple confirmation" },
+    n: 19, period: "10년", score: 98, verdict: "ok", crown: false,
+    note: "🚀 VIX>35 VVIX>130 DD<-20% (19일): 180d +49.25% Win 100% Sharpe 8.86. VIX>40 VVIX>150 DD<-20% (15일): +50.42% Sharpe 8.73. 21d +14.63%. iter17 double panic + DD = triple confirmation" },
+  { iter: "19", name: "✅ VIX9D > VIX term inversion + DD", logic: "📊 VIX9D/VIX > 1.20 AND DD<-20% → SPY 180d long",
+    bt_sharpe: 8.50, est_sharpe: 4.00, cagr: 0.65, mdd: -0.18, win: 100,
+    n: 11, period: "10년", score: 95, verdict: "ok", crown: false,
+    note: "✅ VIX9D/VIX>1.20 + DD<-20% (11일): 180d +51.80% Win 100% Sharpe 8.50. iter18과 다른 angle 같은 regime 포착 (term-structure inversion)" },
+  { iter: "20", name: "✅ ULTRA panic (4-signal joint)", logic: "📈 VIX × VVIX × VIX9D × DD 모두 동시",
+    bt_sharpe: 8.41, est_sharpe: 4.00, cagr: 0.65, mdd: -0.18, win: 100,
+    n: 14, period: "10년", score: 92, verdict: "ok", crown: false,
+    note: "✅ 4-signal joint (V>35 VV>140 term>1.10 DD<-20%) Sharpe 8.41 Win 100%. iter18보다 약함 — 4번째 조건 redundant" },
+  { iter: "21", name: "🏆🏆 US (VIX×VVIX) + KR cross-market", logic: "📈 US panic + KR panic 동시 → SPY+KOSPI 50/50",
+    bt_sharpe: 9.77, est_sharpe: 4.50, cagr: 0.75, mdd: -0.15, win: 100,
+    n: 19, period: "20년", score: 100, verdict: "ok", crown: true,
+    note: "🏆🏆 NEW CHAMP! US (VIX>30 VVIX>120 DD<-10%) + KR (DD<-20% RV>30) 동시 panic 19일: SPY 180d +48.40% / KS 180d +64.17% (KOSPI rebounds harder!) / 50/50 portfolio +56.28% Win 100% Sharpe 9.77. 21d +12.27% Win 100%. iter18+iter12 결합 시너지" },
 ];
 
 let sortKey = "score";
