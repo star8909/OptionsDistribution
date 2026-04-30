@@ -226,10 +226,18 @@ const champions = [
     bt_sharpe: 8.41, est_sharpe: 4.00, cagr: 0.65, mdd: -0.18, win: 100,
     n: 14, period: "10년", score: 92, verdict: "ok", crown: false,
     note: "✅ 4-signal joint (V>35 VV>140 term>1.10 DD<-20%) Sharpe 8.41 Win 100%. iter18보다 약함 — 4번째 조건 redundant" },
-  { iter: "21", name: "🏆🏆 US (VIX×VVIX) + KR cross-market", logic: "📈 US panic + KR panic 동시 → SPY+KOSPI 50/50",
+  { iter: "22", name: "🏆 정직한 챔: VIX>25 cd=30 (N=23 보강)", logic: "📊 N≥20 AND 통계 신뢰성 우선. 180d horizon, cooldown=30d로 N 확보",
+    bt_sharpe: 1.33, est_sharpe: 1.00, cagr: 0.23, mdd: -0.20, win: 83,
+    n: 23, period: "20년", score: 88, verdict: "ok", crown: true,
+    note: "🏆 통계적으로 신뢰 가능한 첫 챔. iter21 (Sh 9.77, N=19) 의 overfit 가능성 인정 — 진짜 천장은 Sh 1.3-1.7. VIX>25 + 180d hold +11.6% Win83%" },
+  { iter: "23", name: "✅ VIX 5d spike (+30%) 새 발견", logic: "📊 VIX 5일간 +30%+ 급등 시 SPY 63d long",
+    bt_sharpe: 0.98, est_sharpe: 0.50, cagr: 0.10, mdd: -0.18, win: 78,
+    n: 23, period: "20년", score: 75, verdict: "ok", crown: false,
+    note: "✅ 새 시그널. VIX 5d 급등 N=23, 63d +5.36% Win 78%. 짧은 horizon으로 N 많이 확보 가능 (21d: N=42 Sh 0.46)" },
+  { iter: "21", name: "❌ US (VIX×VVIX) + KR cross-market (overfit?)", logic: "📈 US panic + KR panic 동시 → SPY+KOSPI 50/50",
     bt_sharpe: 9.77, est_sharpe: 4.50, cagr: 0.75, mdd: -0.15, win: 100,
-    n: 19, period: "20년", score: 100, verdict: "ok", crown: true,
-    note: "🏆🏆 NEW CHAMP! US (VIX>30 VVIX>120 DD<-10%) + KR (DD<-20% RV>30) 동시 panic 19일: SPY 180d +48.40% / KS 180d +64.17% (KOSPI rebounds harder!) / 50/50 portfolio +56.28% Win 100% Sharpe 9.77. 21d +12.27% Win 100%. iter18+iter12 결합 시너지" },
+    n: 19, period: "20년", score: 50, verdict: "warn", crown: false,
+    note: "❌ N=19 통계 부족 — 진짜 Sharpe는 1.5~2 영역 (iter22 검증). Sh 9.77은 small-N inflation. iter22 cd=30 N=23 +11.6% 180d Win 83% Sh 1.33이 정직한 천장" },
 ];
 
 let sortKey = "score";
