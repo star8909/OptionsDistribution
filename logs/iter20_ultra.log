@@ -1,0 +1,34 @@
+[iter20] ULTRA panic = VIX × VVIX × VIX9D/VIX × DD
+  데이터: 2506 days
+
+=== ULTRA panic (180d) ===
+  V>25 VV>100 term>1.0 DD<-5%: N=134 180d  +19.34% Win  81.3% Sh  1.43 
+  V>25 VV>100 term>1.0 DD<-10%: N= 93 180d  +22.98% Win  84.9% Sh  1.74 
+  V>25 VV>110 term>1.05 DD<-10%: N= 53 180d  +25.76% Win  81.1% Sh  1.76 
+  V>30 VV>110 term>1.0 DD<-10%: N= 64 180d  +27.55% Win  85.9% Sh  2.00 ✅
+  V>30 VV>110 term>1.05 DD<-10%: N= 47 180d  +28.20% Win  85.1% Sh  1.96 ✅
+  V>30 VV>120 term>1.05 DD<-15%: N= 23 180d  +42.55% Win 100.0% Sh  3.88 🚀
+  V>30 VV>120 term>1.1 DD<-15%: N= 19 180d  +46.57% Win 100.0% Sh  6.78 🚀
+  V>30 VV>130 term>1.1 DD<-15%: N= 19 180d  +46.57% Win 100.0% Sh  6.78 🚀
+  V>35 VV>130 term>1.1 DD<-15%: N= 19 180d  +46.57% Win 100.0% Sh  6.78 🚀
+  V>35 VV>130 term>1.15 DD<-15%: N= 16 180d  +47.02% Win 100.0% Sh  6.29 🚀
+  V>35 VV>140 term>1.1 DD<-20%: N= 14 180d  +50.28% Win 100.0% Sh  8.41 🚀
+  V>40 VV>130 term>1.1 DD<-15%: N= 19 180d  +46.57% Win 100.0% Sh  6.78 🚀
+  V>40 VV>150 term>1.15 DD<-20%: N= 11 180d  +51.95% Win 100.0% Sh  8.32 🚀
+
+=== ULTRA panic (21d) ===
+  V>25 VV>100 term>1.0 DD<-5%: N=137 21d  +3.64% Win  73.0% 
+  V>25 VV>100 term>1.0 DD<-10%: N= 93 21d  +4.55% Win  74.2% 
+  V>25 VV>110 term>1.05 DD<-10%: N= 53 21d  +5.53% Win  75.5% 
+  V>30 VV>110 term>1.0 DD<-10%: N= 64 21d  +5.62% Win  76.6% 
+  V>30 VV>110 term>1.05 DD<-10%: N= 47 21d  +6.06% Win  76.6% 
+  V>30 VV>120 term>1.05 DD<-15%: N= 23 21d +11.89% Win  95.7% 🚀
+  V>30 VV>120 term>1.1 DD<-15%: N= 19 21d +12.60% Win  94.7% 
+  V>30 VV>130 term>1.1 DD<-15%: N= 19 21d +12.60% Win  94.7% 
+  V>35 VV>130 term>1.1 DD<-15%: N= 19 21d +12.60% Win  94.7% 
+  V>35 VV>130 term>1.15 DD<-15%: N= 16 21d +12.62% Win  93.8% 
+  V>35 VV>140 term>1.1 DD<-20%: N= 14 21d +14.61% Win 100.0% 🚀
+  V>40 VV>130 term>1.1 DD<-15%: N= 19 21d +12.60% Win  94.7% 
+  V>40 VV>150 term>1.15 DD<-20%: N= 11 21d +15.19% Win 100.0% 🚀
+
+  → C:\Projects\OptionsDistribution\results\iter20_ultra_panic.json
