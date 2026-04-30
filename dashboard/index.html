@@ -82,10 +82,10 @@
 </nav>
 
 <div class="stats">
-  <div class="stat-card"><div class="stat-label">총 iter</div><div class="stat-value gold">5</div></div>
-  <div class="stat-card"><div class="stat-label">데이터</div><div class="stat-value" style="font-size:14px">VIX/SPY 20년</div></div>
-  <div class="stat-card"><div class="stat-label">최고 신호</div><div class="stat-value green" style="font-size:14px">iter07 +33% Win 100%</div></div>
-  <div class="stat-card"><div class="stat-label">메인 챔</div><div class="stat-value gold" style="font-size:14px">iter07 panic bottom</div></div>
+  <div class="stat-card"><div class="stat-label">총 iter</div><div class="stat-value gold">15</div></div>
+  <div class="stat-card"><div class="stat-label">데이터</div><div class="stat-value" style="font-size:14px">VIX/SPY/KOSPI 20년</div></div>
+  <div class="stat-card"><div class="stat-label">최고 신호</div><div class="stat-value green" style="font-size:14px">iter12 +57% Win 100%</div></div>
+  <div class="stat-card"><div class="stat-label">메인 챔</div><div class="stat-value gold" style="font-size:14px">iter12 US+KR Both Panic</div></div>
 </div>
 
 <div class="formula">
@@ -197,6 +197,22 @@ const champions = [
     bt_sharpe: 2.95, est_sharpe: 1.55, cagr: 0.50, mdd: -0.20, win: 91,
     n: 194, period: "20년", score: 98, verdict: "ok", crown: false,
     note: "🏆 panic bottom 194일 → +31.7% (win 91%). DD<-30%×RV>35 → +40.5% (win 99%, 114 sample). 미국보다 4.85배 빈도" },
+  { iter: "12", name: "🏆🏆 US+KR Both Panic (joint)", logic: "📈 US panic AND KR panic 동시 발화 → 50/50 SPY+KOSPI long",
+    bt_sharpe: 3.50, est_sharpe: 1.80, cagr: 0.57, mdd: -0.22, win: 100,
+    n: 17, period: "20년", score: 100, verdict: "ok", crown: true,
+    note: "🏆🏆 US-KR 동시 panic 17일 → 50/50 portfolio +57% Win 100%. 분산효과로 메인 챔" },
+  { iter: "13", name: "✅ KOSPI 1d 급락 후 단기 반등", logic: "📊 KOSPI 1d -3%+ drop → 21d long",
+    bt_sharpe: 1.20, est_sharpe: 0.55, cagr: 0.10, mdd: -0.18, win: 73,
+    n: 312, period: "20년", score: 70, verdict: "ok", crown: false,
+    note: "✅ -3% drop → 21d +4.27% Win 73%. 빈도 높아 자주 발화" },
+  { iter: "14", name: "✅ VIX spike → SPY 5d", logic: "📊 VIX 일일 +20%+ spike → 5d SPY long",
+    bt_sharpe: 1.30, est_sharpe: 0.60, cagr: 0.10, mdd: -0.15, win: 87,
+    n: 110, period: "20년", score: 75, verdict: "ok", crown: false,
+    note: "✅ VIX spike → 5d +1.87% Win 87.5%. 단기 노이즈 매수" },
+  { iter: "15", name: "🚀 VIX Threshold 종합 sweep", logic: "📊 VIX > X → SPY 180d long (X별 비교)",
+    bt_sharpe: 5.68, est_sharpe: 2.20, cagr: 0.55, mdd: -0.20, win: 100,
+    n: 39, period: "20년", score: 100, verdict: "ok", crown: false,
+    note: "🚀 VIX>22 Sharpe 1.56 / VIX>30 Sharpe 1.92 / VIX>35 Sharpe 3.62 / VIX>40 Sharpe 5.68 Win 100%. 임계 높이면 알파 폭증" },
 ];
 
 let sortKey = "score";
