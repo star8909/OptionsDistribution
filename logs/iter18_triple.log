@@ -1,0 +1,34 @@
+[iter18] VIX × VVIX × DD triple panic
+  데이터: 2506 days
+
+=== Triple panic (180d) ===
+  VIX>25 VVIX>100 DD<-10%: N=136 180d  +24.03% Win  85.3% Sharpe  1.93 ✅
+  VIX>25 VVIX>110 DD<-10%: N=110 180d  +25.51% Win  81.8% Sharpe  1.91 
+  VIX>30 VVIX>110 DD<-10%: N= 92 180d  +27.44% Win  84.8% Sharpe  2.09 
+  VIX>30 VVIX>120 DD<-10%: N= 70 180d  +29.23% Win  82.9% Sharpe  2.08 
+  VIX>30 VVIX>120 DD<-15%: N= 43 180d  +38.97% Win 100.0% Sharpe  3.90 🚀
+  VIX>30 VVIX>130 DD<-15%: N= 33 180d  +43.69% Win 100.0% Sharpe  6.89 🚀
+  VIX>35 VVIX>130 DD<-10%: N= 37 180d  +40.22% Win  94.6% Sharpe  4.03 ✅
+  VIX>35 VVIX>130 DD<-15%: N= 32 180d  +43.94% Win 100.0% Sharpe  6.91 🚀
+  VIX>35 VVIX>130 DD<-20%: N= 19 180d  +49.25% Win 100.0% Sharpe  8.86 🚀
+  VIX>35 VVIX>140 DD<-15%: N= 24 180d  +46.57% Win 100.0% Sharpe  7.50 🚀
+  VIX>40 VVIX>130 DD<-15%: N= 30 180d  +44.54% Win 100.0% Sharpe  7.04 🚀
+  VIX>40 VVIX>150 DD<-15%: N= 17 180d  +49.07% Win 100.0% Sharpe  8.11 🚀
+  VIX>40 VVIX>150 DD<-20%: N= 15 180d  +50.42% Win 100.0% Sharpe  8.73 🚀
+
+=== Triple panic (21d) ===
+  VIX>25 VVIX>100 DD<-10%: N=136 21d  +5.30% Win  81.6% 
+  VIX>25 VVIX>110 DD<-10%: N=110 21d  +5.65% Win  82.7% 
+  VIX>30 VVIX>110 DD<-10%: N= 92 21d  +6.13% Win  83.7% 
+  VIX>30 VVIX>120 DD<-10%: N= 70 21d  +7.15% Win  85.7% 
+  VIX>30 VVIX>120 DD<-15%: N= 43 21d  +9.17% Win  90.7% 
+  VIX>30 VVIX>130 DD<-15%: N= 33 21d +10.52% Win  93.9% 
+  VIX>35 VVIX>130 DD<-10%: N= 37 21d  +9.98% Win  91.9% 
+  VIX>35 VVIX>130 DD<-15%: N= 32 21d +10.54% Win  93.8% 
+  VIX>35 VVIX>130 DD<-20%: N= 19 21d +13.85% Win 100.0% 🚀
+  VIX>35 VVIX>140 DD<-15%: N= 24 21d +12.84% Win 100.0% 🚀
+  VIX>40 VVIX>130 DD<-15%: N= 30 21d +10.97% Win  96.7% 🚀
+  VIX>40 VVIX>150 DD<-15%: N= 17 21d +14.38% Win 100.0% 🚀
+  VIX>40 VVIX>150 DD<-20%: N= 15 21d +14.63% Win 100.0% 🚀
+
+  → C:\Projects\OptionsDistribution\results\iter18_triple_signal.json
