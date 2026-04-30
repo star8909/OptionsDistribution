@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 
 from src.config import RESULTS_DIR
-from src.data_loader import fetch_history
+from src.data_loader import fetch_history, deduplicate_events, event_sharpe
 
 
 def main():
@@ -57,14 +57,26 @@ def main():
         marker = "🚀 contrarian LONG" if bin_.left >= 1.2 and r90 > 5 else ""
         print(f"  {str(bin_):15s} {len(sub):>5} {r10:>+7.2f}% {r30:>+7.2f}% {r60:>+7.2f}% {r90:>+7.2f}% {win90:>5.1f}%  {marker}")
 
-    # PCC > 1.5 신호
-    extreme = df[df["pcc"] > 1.5].dropna(subset=["spy_90d"])
-    if len(extreme) >= 20:
+    # PCC > 1.5 신호 (독립 이벤트로 중복 제거)
+    pcc_signal_raw = df["pcc"] > 1.5
+    pcc_dedup = deduplicate_events(pcc_signal_raw, cooldown_days=90)
+    extreme = df[pcc_dedup].dropna(subset=["spy_90d"])
+    raw_n_extreme = len(df[pcc_signal_raw].dropna(subset=["spy_90d"]))
+    warning = " ⚠️ N 부족 (신뢰 불가)" if len(extreme) < 10 else ""
+    print(f"\n  PCC > 1.5 (panic): Raw N={raw_n_extreme} → 독립 이벤트 N={len(extreme)}{warning}")
+    if len(extreme) >= 5:
         avg = extreme["spy_90d"].mean() * 100
         win = (extreme["spy_90d"] > 0).sum() / len(extreme) * 100
-        print(f"\n  PCC > 1.5 (panic) {len(extreme)}일 → SPY 90d {avg:+.1f}% (win {win:.1f}%)")
+        sh = event_sharpe(extreme["spy_90d"])
+        sh_str = f"{sh:.2f}" if not np.isnan(sh) else "N/A (N<10)"
+        print(f"  독립 이벤트 {len(extreme)}건 → SPY 90d {avg:+.1f}% (win {win:.1f}%, Sharpe={sh_str})")
 
-    out = {"n_days": len(df), "pcc_mean": float(df["pcc"].mean())}
+    out = {
+        "n_days": len(df),
+        "pcc_mean": float(df["pcc"].mean()),
+        "pcc_gt15_n_raw": int(raw_n_extreme),
+        "pcc_gt15_n_independent": int(len(extreme)),
+    }
     out_path = RESULTS_DIR / "iter06_pcc_signal.json"
     out_path.write_text(json.dumps(out, indent=2, ensure_ascii=False, default=str), encoding='utf-8')
     print(f"\n  → {out_path}")

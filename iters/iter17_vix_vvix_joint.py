@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 
 from src.config import RESULTS_DIR
-from src.data_loader import fetch_history
+from src.data_loader import fetch_history, deduplicate_events, event_sharpe
 
 
 def main():
@@ -43,30 +43,42 @@ def main():
     for h in [5, 21, 63, 180]:
         df[f"future_{h}d"] = df["spy"].pct_change(h).shift(-h)
 
-    print(f"\n=== VIX×VVIX 결합 (180d future) ===")
     combos = [
         (20, 90), (25, 100), (25, 110), (30, 110), (30, 120), (30, 130),
         (35, 130), (35, 140), (40, 130), (40, 150),
     ]
+
+    print(f"\n=== VIX×VVIX 결합 (180d future, 독립 이벤트 기준) ===")
+    print(f"  {'Signal':25s} {'RawN':>6} {'IndepN':>7} {'Mean':>8} {'Win%':>6} {'Sharpe':>7}")
     for v_t, vv_t in combos:
-        sub = df[(df["vix"] >= v_t) & (df["vvix"] >= vv_t)].dropna(subset=["future_180d"])
-        if len(sub) < 10:
+        signal = (df["vix"] >= v_t) & (df["vvix"] >= vv_t)
+        dedup = deduplicate_events(signal, cooldown_days=180)
+        raw_sub = df[signal].dropna(subset=["future_180d"])
+        sub = df[dedup].dropna(subset=["future_180d"])
+        if len(sub) < 3:
             continue
         m = sub["future_180d"].mean() * 100
         w = (sub["future_180d"] > 0).sum() / len(sub) * 100
-        s = sub["future_180d"].mean() / sub["future_180d"].std() * np.sqrt(2) if sub["future_180d"].std() > 0 else 0
-        marker = "🚀" if w >= 90 and m > 15 else "✅" if w > 80 else ""
-        print(f"  VIX>{v_t} AND VVIX>{vv_t}: N={len(sub):>4} 180d {m:>+7.2f}% Win {w:>5.1f}% Sharpe {s:>5.2f} {marker}")
+        sh = event_sharpe(sub["future_180d"])
+        s = f"{sh:.2f}" if not np.isnan(sh) else "N/A"
+        marker = "🚀" if w >= 90 and m > 15 and not np.isnan(sh) else "✅" if w > 80 and not np.isnan(sh) else ""
+        warning = " ⚠️" if len(sub) < 10 else ""
+        print(f"  VIX>{v_t} AND VVIX>{vv_t}    {len(raw_sub):>6} {len(sub):>7} {m:>+7.2f}% {w:>5.1f}% {s:>7}{warning}  {marker}")
 
-    print(f"\n=== VIX×VVIX 결합 (21d future) ===")
+    print(f"\n=== VIX×VVIX 결합 (21d future, 독립 이벤트 기준) ===")
+    print(f"  {'Signal':25s} {'RawN':>6} {'IndepN':>7} {'Mean':>8} {'Win%':>6}")
     for v_t, vv_t in combos:
-        sub = df[(df["vix"] >= v_t) & (df["vvix"] >= vv_t)].dropna(subset=["future_21d"])
-        if len(sub) < 10:
+        signal = (df["vix"] >= v_t) & (df["vvix"] >= vv_t)
+        dedup = deduplicate_events(signal, cooldown_days=21)
+        raw_sub = df[signal].dropna(subset=["future_21d"])
+        sub = df[dedup].dropna(subset=["future_21d"])
+        if len(sub) < 3:
             continue
         m = sub["future_21d"].mean() * 100
         w = (sub["future_21d"] > 0).sum() / len(sub) * 100
-        marker = "🚀" if w >= 90 and m > 5 else "✅" if w > 85 else ""
-        print(f"  VIX>{v_t} AND VVIX>{vv_t}: N={len(sub):>4} 21d {m:>+6.2f}% Win {w:>5.1f}% {marker}")
+        marker = "🚀" if w >= 90 and m > 5 and len(sub) >= 10 else "✅" if w > 85 and len(sub) >= 10 else ""
+        warning = " ⚠️" if len(sub) < 10 else ""
+        print(f"  VIX>{v_t} AND VVIX>{vv_t}    {len(raw_sub):>6} {len(sub):>7} {m:>+6.2f}% {w:>5.1f}%  {marker}{warning}")
 
     out_path = RESULTS_DIR / "iter17_vix_vvix_joint.json"
     out_path.write_text("{}", encoding='utf-8')

@@ -1,3 +1,11 @@
 {
-  "n_days": 2514
+  "n_days": 2514,
+  "ratio_gt110": {
+    "n_raw": 155,
+    "n_independent": 27
+  },
+  "ratio_gt120": {
+    "n_raw": 51,
+    "n_independent": 12
+  }
 }

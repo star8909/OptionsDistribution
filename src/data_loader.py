@@ -75,3 +75,55 @@ def realized_vol(prices: pd.Series, window_days: int) -> float:
         return float('nan')
     rets = prices.pct_change().dropna().tail(window_days)
     return float(rets.std() * (252 ** 0.5))
+
+
+def deduplicate_events(signal: pd.Series, cooldown_days: int = 0) -> pd.Series:
+    """연속 패닉 날들을 독립 이벤트로 압축.
+
+    이벤트 정의: signal이 False→True로 전환되는 첫 날만 선택.
+    cooldown_days > 0이면 이벤트 후 N일간 추가 이벤트 억제 (독립성 보장).
+
+    Args:
+        signal: bool Series (True=패닉/신호 발생)
+        cooldown_days: 이벤트 후 억제 기간 (0=연속 이벤트만 제거)
+
+    Returns:
+        bool Series — 독립 이벤트 시작일만 True
+
+    사용 예:
+        signal = (vix > 35) & (dd < -0.15)
+        events = deduplicate_events(signal, cooldown_days=180)
+        df_events = df[events].dropna(subset=["spy_180d"])
+
+    주의:
+        N_raw=18이 N_independent=2로 줄면 통계 신뢰도 없을 수 있음.
+        N>=10 이상이어야 Sharpe 계산 신뢰 가능.
+    """
+    import pandas as pd
+    signal = signal.fillna(False).astype(bool)
+    result = pd.Series(False, index=signal.index)
+    last_event_pos = -cooldown_days - 1
+
+    for i, (dt, val) in enumerate(signal.items()):
+        if not val:
+            continue
+        prev_val = signal.iloc[i - 1] if i > 0 else False
+        in_cooldown = (cooldown_days > 0) and (i - last_event_pos <= cooldown_days)
+        if not prev_val and not in_cooldown:
+            result.loc[dt] = True
+            last_event_pos = i
+
+    return result
+
+
+def event_sharpe(returns_180d: "pd.Series", annualize_factor: float = 2.0) -> float:
+    """N개 이벤트의 180d return으로 Sharpe 계산.
+
+    annualize_factor=sqrt(2) 가정: 180d 이벤트가 연간 2번.
+    N<10이면 nan 반환 (신뢰 불가).
+    """
+    import numpy as np
+    r = returns_180d.dropna()
+    if len(r) < 10:
+        return float('nan')
+    return float(r.mean() / r.std() * (annualize_factor ** 0.5)) if r.std() > 0 else 0.0

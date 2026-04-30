@@ -21,7 +21,7 @@ import numpy as np
 import pandas as pd
 
 from src.config import RESULTS_DIR
-from src.data_loader import fetch_history
+from src.data_loader import fetch_history, deduplicate_events, event_sharpe
 
 
 def main():
@@ -60,24 +60,42 @@ def main():
             marker = "🚀 STRONG" if mean_ret > 15 and win > 80 else ""
             print(f"  {dd_low:>4}~{dd_high:<4} {v_low:>3}~{v_high:<3}  {len(sub):>4}  {mean_ret:>+6.1f}%  {win:>4.0f}%  {max_r:>+5.0f}%  {min_r:>+5.0f}% {marker}")
 
-    # Best signal
+    # Best signal (독립 이벤트로 중복 제거)
     print(f"\n=== Strong panic bottom: DD < -20% AND VIX > 30 ===")
-    panic = df[(df["dd_from_high"] < -20) & (df["vix"] > 30)].dropna(subset=["spy_180d"])
-    if len(panic) >= 20:
+    panic_raw_signal = (df["dd_from_high"] < -20) & (df["vix"] > 30)
+    panic_dedup = deduplicate_events(panic_raw_signal, cooldown_days=180)
+    panic = df[panic_dedup].dropna(subset=["spy_180d"])
+    raw_n_panic = len(df[panic_raw_signal].dropna(subset=["spy_180d"]))
+    warning = " ⚠️ N 부족 (신뢰 불가)" if len(panic) < 10 else ""
+    print(f"  Raw N={raw_n_panic} → 독립 이벤트 N={len(panic)}{warning}")
+    if len(panic) >= 5:
         avg = panic["spy_180d"].mean() * 100
         win = (panic["spy_180d"] > 0).sum() / len(panic) * 100
-        print(f"  N={len(panic)}, 180d 평균 {avg:+.1f}%, win {win:.1f}%")
+        sh = event_sharpe(panic["spy_180d"])
+        sh_str = f"{sh:.2f}" if not np.isnan(sh) else "N/A (N<10)"
+        print(f"  독립 이벤트 {len(panic)}건: 180d 평균 {avg:+.1f}%, win {win:.1f}%, Sharpe={sh_str}")
         if avg > 15:
             print(f"  🏆 매우 강력!")
 
     print(f"\n=== Mild panic: DD < -10% AND VIX > 25 ===")
-    mild = df[(df["dd_from_high"] < -10) & (df["vix"] > 25)].dropna(subset=["spy_180d"])
-    if len(mild) >= 20:
+    mild_raw_signal = (df["dd_from_high"] < -10) & (df["vix"] > 25)
+    mild_dedup = deduplicate_events(mild_raw_signal, cooldown_days=180)
+    mild = df[mild_dedup].dropna(subset=["spy_180d"])
+    raw_n_mild = len(df[mild_raw_signal].dropna(subset=["spy_180d"]))
+    warning_mild = " ⚠️ N 부족 (신뢰 불가)" if len(mild) < 10 else ""
+    print(f"  Raw N={raw_n_mild} → 독립 이벤트 N={len(mild)}{warning_mild}")
+    if len(mild) >= 5:
         avg = mild["spy_180d"].mean() * 100
         win = (mild["spy_180d"] > 0).sum() / len(mild) * 100
-        print(f"  N={len(mild)}, 180d 평균 {avg:+.1f}%, win {win:.1f}%")
+        sh = event_sharpe(mild["spy_180d"])
+        sh_str = f"{sh:.2f}" if not np.isnan(sh) else "N/A (N<10)"
+        print(f"  독립 이벤트 {len(mild)}건: 180d 평균 {avg:+.1f}%, win {win:.1f}%, Sharpe={sh_str}")
 
-    out = {"n_days": len(df)}
+    out = {
+        "n_days": len(df),
+        "strong_panic": {"n_raw": raw_n_panic, "n_independent": len(panic)},
+        "mild_panic": {"n_raw": raw_n_mild, "n_independent": len(mild)},
+    }
     out_path = RESULTS_DIR / "iter07_drawdown_vix.json"
     out_path.write_text(json.dumps(out, indent=2, ensure_ascii=False, default=str), encoding='utf-8')
     print(f"\n  → {out_path}")

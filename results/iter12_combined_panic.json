@@ -1,5 +1,9 @@
 {
-  "n_both_panic": 17,
-  "n_us_only": 21,
-  "n_kr_only": 2
+  "n_both_panic_raw": 17,
+  "n_both_panic_independent": 1,
+  "n_us_only_raw": 21,
+  "n_us_only_independent": 2,
+  "n_kr_only_raw": 2,
+  "n_kr_only_independent": 1,
+  "note": "독립 이벤트 기준 (cooldown 180일). N<10이면 Sharpe 신뢰 불가."
 }

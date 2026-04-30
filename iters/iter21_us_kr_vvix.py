@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 
 from src.config import RESULTS_DIR
-from src.data_loader import fetch_history
+from src.data_loader import fetch_history, deduplicate_events, event_sharpe
 
 
 def realized_vol(prices, window):
@@ -65,37 +65,51 @@ def main():
         df_kr[["kr_panic", "ks_180d", "ks_21d"]], how='inner')
     print(f"  Joined: {len(df)} days")
 
-    # Combined signals
-    print(f"\n=== Both panic (US+KR) ===")
-    both = df[df["us_panic"] & df["kr_panic"]].dropna(subset=["spy_180d", "ks_180d"])
-    print(f"  N={len(both)}")
-    if len(both) >= 5:
-        port = (both["spy_180d"] + both["ks_180d"]) / 2
-        print(f"  SPY 180d: {both['spy_180d'].mean()*100:+.2f}% Win {(both['spy_180d']>0).sum()/len(both)*100:.1f}%")
-        print(f"  KS  180d: {both['ks_180d'].mean()*100:+.2f}% Win {(both['ks_180d']>0).sum()/len(both)*100:.1f}%")
-        print(f"  50/50: {port.mean()*100:+.2f}% Win {(port>0).sum()/len(both)*100:.1f}%")
+    both_signal = df["us_panic"] & df["kr_panic"]
+    strong_signal = df["us_panic_strong"] & df["kr_panic"]
 
-    print(f"\n=== Both panic STRONG (US strong + KR) ===")
-    both_s = df[df["us_panic_strong"] & df["kr_panic"]].dropna(subset=["spy_180d", "ks_180d"])
-    print(f"  N={len(both_s)}")
-    if len(both_s) >= 3:
-        port_s = (both_s["spy_180d"] + both_s["ks_180d"]) / 2
-        print(f"  SPY 180d: {both_s['spy_180d'].mean()*100:+.2f}% Win {(both_s['spy_180d']>0).sum()/len(both_s)*100:.1f}%")
-        print(f"  KS  180d: {both_s['ks_180d'].mean()*100:+.2f}% Win {(both_s['ks_180d']>0).sum()/len(both_s)*100:.1f}%")
-        print(f"  50/50: {port_s.mean()*100:+.2f}% Win {(port_s>0).sum()/len(both_s)*100:.1f}%")
-        s = port_s.mean() / port_s.std() * np.sqrt(2) if port_s.std() > 0 else 0
-        print(f"  Sharpe: {s:.2f}")
+    # Raw N (이전 방식 — 연속 날 전부 포함, 통계 부풀림)
+    both_raw = df[both_signal].dropna(subset=["spy_180d", "ks_180d"])
+    both_s_raw = df[strong_signal].dropna(subset=["spy_180d", "ks_180d"])
 
-    # 21d 단기
-    print(f"\n=== Both panic (21d 단기) ===")
-    if len(both) >= 5:
-        sub = both.dropna(subset=["spy_21d", "ks_21d"])
-        if len(sub) > 0:
-            port_21 = (sub["spy_21d"] + sub["ks_21d"]) / 2
-            print(f"  Both 21d 50/50: {port_21.mean()*100:+.2f}% Win {(port_21>0).sum()/len(sub)*100:.1f}%")
+    # 독립 이벤트 (연속 패닉 = 1 이벤트, cooldown 180일)
+    both_dedup = deduplicate_events(both_signal, cooldown_days=180)
+    strong_dedup = deduplicate_events(strong_signal, cooldown_days=180)
+    both_events = df[both_dedup].dropna(subset=["spy_180d", "ks_180d"])
+    strong_events = df[strong_dedup].dropna(subset=["spy_180d", "ks_180d"])
 
+    def print_result(label, events, raw_n):
+        n = len(events)
+        warning = " ⚠️ N 부족 (신뢰 불가)" if n < 10 else ""
+        print(f"\n=== {label} ===")
+        print(f"  Raw N={raw_n}  →  독립 이벤트 N={n}{warning}")
+        if n == 0:
+            return {}
+        port = (events["spy_180d"] + events["ks_180d"]) / 2
+        sh = event_sharpe(port)
+        sh_str = f"{sh:.2f}" if not np.isnan(sh) else "N/A (N<10)"
+        print(f"  SPY 180d: {events['spy_180d'].mean()*100:+.1f}%  Win {(events['spy_180d']>0).mean()*100:.0f}%")
+        print(f"  KS  180d: {events['ks_180d'].mean()*100:+.1f}%  Win {(events['ks_180d']>0).mean()*100:.0f}%")
+        print(f"  50/50: {port.mean()*100:+.1f}%  Win {(port>0).mean()*100:.0f}%  Sharpe={sh_str}")
+        for dt, row in events.iterrows():
+            p = (row["spy_180d"] + row["ks_180d"]) / 2
+            print(f"    {dt.date()}: 50/50={p*100:+.1f}%")
+        return {"n_independent": n, "raw_n": raw_n, "mean_50_50_pct": float(port.mean()*100), "sharpe": float(sh) if not np.isnan(sh) else None}
+
+    r_both = print_result("Both panic (US+KR)", both_events, len(both_raw))
+    r_strong = print_result("Both panic STRONG", strong_events, len(both_s_raw))
+
+    out = {
+        "n_both_raw": int(len(both_raw)),
+        "n_both_independent": int(len(both_events)),
+        "n_strong_raw": int(len(both_s_raw)),
+        "n_strong_independent": int(len(strong_events)),
+        "both": r_both,
+        "strong": r_strong,
+        "note": "독립 이벤트 기준 (cooldown 180일). N<10이면 Sharpe 신뢰 불가.",
+    }
     out_path = RESULTS_DIR / "iter21_us_kr_vvix.json"
-    out_path.write_text(json.dumps({"n_both": int(len(both)), "n_both_strong": int(len(both_s))}, indent=2), encoding='utf-8')
+    out_path.write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding='utf-8')
     print(f"\n  → {out_path}")
 
 

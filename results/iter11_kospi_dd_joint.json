@@ -1,3 +1,4 @@
 {
-  "n_panic": 194
+  "n_panic_raw": 194,
+  "n_panic_independent": 4
 }

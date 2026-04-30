@@ -1,0 +1,26 @@
+[iter16] VVIX (vol of vol) signal
+  VVIX 데이터: 2506 days, range 73.3 ~ 207.6
+
+=== VVIX threshold 분석 (180d future) ===
+  VVIX >  80      2190  +10.96%  85.9%   1.33  🚀
+  VVIX >  90      1570  +10.67%  82.9%   1.17  🚀
+  VVIX > 100       957  +10.84%  77.2%   1.00  
+  VVIX > 110       563  +11.70%  74.1%   0.97  
+  VVIX > 120       241  +13.68%  72.2%   0.99  
+  VVIX > 130       109  +18.57%  72.5%   1.16  
+  VVIX > 140        57  +23.84%  78.9%   1.38  
+  VVIX > 150        33  +28.49%  87.9%   1.62  🚀
+
+=== VVIX 단기 (21d future) ===
+  VVIX > 100      1040   +1.71%  71.1%  
+  VVIX > 110       601   +2.22%  73.2%  
+  VVIX > 120       257   +3.65%  78.2%  
+  VVIX > 130       114   +5.75%  86.0%  🚀
+  VVIX > 140        58   +7.86%  89.7%  🚀
+  VVIX > 150        33   +9.74%  93.9%  🚀
+
+=== VVIX 낮은 calm (continuation) ===
+  VVIX <  80       136    +13.75%  97.8%
+  VVIX <  85       409    +12.72%  95.4%
+
+  → C:\Projects\OptionsDistribution\results\iter16_vvix_signal.json

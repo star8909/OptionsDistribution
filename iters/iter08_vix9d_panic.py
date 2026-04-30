@@ -16,7 +16,7 @@ import numpy as np
 import pandas as pd
 
 from src.config import RESULTS_DIR
-from src.data_loader import fetch_history
+from src.data_loader import fetch_history, deduplicate_events, event_sharpe
 
 
 def main():
@@ -64,22 +64,38 @@ def main():
         marker = "🚀" if r21 > 3 and win21 > 70 else ""
         print(f"  {str(bin_):15s} {len(sub):>5} {r5:>+6.2f}% {r10:>+6.2f}% {r21:>+6.2f}% {r42:>+6.2f}% {r63:>+6.2f}% {win21:>4.0f}% {marker}")
 
-    # Strong panic signal
-    strong = df[df["ratio"] > 1.10].dropna(subset=["spy_21d"])
-    if len(strong) >= 20:
+    # Strong panic signal (독립 이벤트로 중복 제거)
+    strong_raw_signal = df["ratio"] > 1.10
+    strong_dedup = deduplicate_events(strong_raw_signal, cooldown_days=21)
+    strong = df[strong_dedup].dropna(subset=["spy_21d"])
+    raw_n_strong = len(df[strong_raw_signal].dropna(subset=["spy_21d"]))
+    warning = " ⚠️ N 부족 (신뢰 불가)" if len(strong) < 10 else ""
+    print(f"\n  Ratio > 1.10 (단기 panic): Raw N={raw_n_strong} → 독립 이벤트 N={len(strong)}{warning}")
+    if len(strong) >= 5:
         avg = strong["spy_21d"].mean() * 100
         win = (strong["spy_21d"] > 0).sum() / len(strong) * 100
-        print(f"\n  Ratio > 1.10 (단기 panic) {len(strong)}일 → SPY 21d {avg:+.2f}%, win {win:.1f}%")
+        sh = event_sharpe(strong["spy_21d"], annualize_factor=252/21)
+        sh_str = f"{sh:.2f}" if not np.isnan(sh) else "N/A (N<10)"
+        print(f"  독립 이벤트 {len(strong)}건 → SPY 21d {avg:+.2f}%, win {win:.1f}%, Sharpe={sh_str}")
         if avg > 2:
             print(f"  🏆 mean reversion 확인!")
 
-    very = df[df["ratio"] > 1.20].dropna(subset=["spy_21d"])
-    if len(very) >= 10:
+    very_raw_signal = df["ratio"] > 1.20
+    very_dedup = deduplicate_events(very_raw_signal, cooldown_days=21)
+    very = df[very_dedup].dropna(subset=["spy_21d"])
+    raw_n_very = len(df[very_raw_signal].dropna(subset=["spy_21d"]))
+    warning_very = " ⚠️ N 부족 (신뢰 불가)" if len(very) < 10 else ""
+    print(f"  Ratio > 1.20 (severe panic): Raw N={raw_n_very} → 독립 이벤트 N={len(very)}{warning_very}")
+    if len(very) >= 5:
         avg = very["spy_21d"].mean() * 100
         win = (very["spy_21d"] > 0).sum() / len(very) * 100
-        print(f"  Ratio > 1.20 (severe panic) {len(very)}일 → SPY 21d {avg:+.2f}%, win {win:.1f}%")
+        print(f"  독립 이벤트 {len(very)}건 → SPY 21d {avg:+.2f}%, win {win:.1f}%")
 
-    out = {"n_days": len(df)}
+    out = {
+        "n_days": len(df),
+        "ratio_gt110": {"n_raw": raw_n_strong, "n_independent": len(strong)},
+        "ratio_gt120": {"n_raw": raw_n_very, "n_independent": len(very)},
+    }
     out_path = RESULTS_DIR / "iter08_vix9d_panic.json"
     out_path.write_text(json.dumps(out, indent=2, ensure_ascii=False, default=str), encoding='utf-8')
     print(f"\n  → {out_path}")

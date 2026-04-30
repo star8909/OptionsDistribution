@@ -1,4 +1,19 @@
 {
-  "n_both": 19,
-  "n_both_strong": 19
+  "n_both_raw": 19,
+  "n_both_independent": 1,
+  "n_strong_raw": 19,
+  "n_strong_independent": 1,
+  "both": {
+    "n_independent": 1,
+    "raw_n": 19,
+    "mean_50_50_pct": 43.32440298273163,
+    "sharpe": null
+  },
+  "strong": {
+    "n_independent": 1,
+    "raw_n": 19,
+    "mean_50_50_pct": 43.32440298273163,
+    "sharpe": null
+  },
+  "note": "독립 이벤트 기준 (cooldown 180일). N<10이면 Sharpe 신뢰 불가."
 }

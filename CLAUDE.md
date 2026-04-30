@@ -8,11 +8,11 @@
 strike price = market-implied probability of expiration ITM. 시장 implied prob ≠ 진짜 확률 영역 찾아 +EV 베팅.
 
 자매 프로젝트 (모두 같은 방법론):
-- `c:\Projects\ProbabilityDistribution` — 암호화폐
-- `c:\Projects\EquityDistribution` — 한투 해외주식
-- `c:\Projects\FuturesDistribution` — 한투 해외선물옵션
-- `c:\Projects\polymarket-analyze` — Polymarket 예측시장
-- `c:\Projects\OptionsDistribution` — **옵션** (이 프로젝트)
+- `c:\Projects\Quant\ProbabilityDistribution` — 암호화폐
+- `c:\Projects\Quant\EquityDistribution` — 한투 해외주식
+- `c:\Projects\Quant\FuturesDistribution` — 한투 해외선물옵션
+- `c:\Projects\Quant\polymarket-analyze` — Polymarket 예측시장
+- `c:\Projects\Quant\OptionsDistribution` — **옵션** (이 프로젝트)
 
 ## 핵심 가설
 

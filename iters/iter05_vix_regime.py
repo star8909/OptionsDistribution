@@ -20,7 +20,7 @@ import numpy as np
 import pandas as pd
 
 from src.config import RESULTS_DIR
-from src.data_loader import fetch_history
+from src.data_loader import fetch_history, deduplicate_events, event_sharpe
 
 
 def main():
@@ -82,21 +82,37 @@ def main():
 
     # Strategy: VIX > 30 시 SPY long, VIX < 12 시 cash
     print(f"\n=== Simple strategy: VIX > 30 시 SPY long ===")
-    panic_signals = df[df["vix"] > 30].dropna(subset=["spy_180d"])
-    if len(panic_signals) >= 50:
+    panic_raw_signal = df["vix"] > 30
+    panic_dedup = deduplicate_events(panic_raw_signal, cooldown_days=180)
+    panic_signals = df[panic_dedup].dropna(subset=["spy_180d"])
+    raw_n_panic = len(df[panic_raw_signal].dropna(subset=["spy_180d"]))
+    warning = " ⚠️ N 부족 (신뢰 불가)" if len(panic_signals) < 10 else ""
+    print(f"  Raw N={raw_n_panic} → 독립 이벤트 N={len(panic_signals)}{warning}")
+    if len(panic_signals) >= 5:
         avg_ret = panic_signals["spy_180d"].mean() * 100
         win = (panic_signals["spy_180d"] > 0).sum() / len(panic_signals) * 100
-        print(f"  VIX > 30 신호 {len(panic_signals)}일 → 180d SPY {avg_ret:+.1f}% (win {win:.1f}%)")
+        sh = event_sharpe(panic_signals["spy_180d"])
+        sh_str = f"{sh:.2f}" if not np.isnan(sh) else "N/A (N<10)"
+        print(f"  VIX > 30 독립 이벤트 {len(panic_signals)}건 → 180d SPY {avg_ret:+.1f}% (win {win:.1f}%, Sharpe={sh_str})")
         if avg_ret > 8:
             print(f"  🏆 강력! VIX > 30 시 SPY 180d 평균 +{avg_ret:.0f}%")
 
     # 매우 calm (VIX < 12) 시 — over-confident
-    calm = df[df["vix"] < 12].dropna(subset=["spy_180d"])
-    if len(calm) >= 50:
+    calm_raw_signal = df["vix"] < 12
+    calm_dedup = deduplicate_events(calm_raw_signal, cooldown_days=180)
+    calm = df[calm_dedup].dropna(subset=["spy_180d"])
+    raw_n_calm = len(df[calm_raw_signal].dropna(subset=["spy_180d"]))
+    if len(calm) >= 5:
         avg_ret = calm["spy_180d"].mean() * 100
-        print(f"  VIX < 12 신호 {len(calm)}일 → 180d SPY {avg_ret:+.1f}%")
+        print(f"  VIX < 12 Raw N={raw_n_calm} → 독립 이벤트 N={len(calm)} → 180d SPY {avg_ret:+.1f}%")
 
-    out = {"n_days": len(df)}
+    out = {
+        "n_days": len(df),
+        "panic_vix30": {
+            "n_raw": raw_n_panic,
+            "n_independent": len(panic_signals),
+        },
+    }
     out_path = RESULTS_DIR / "iter05_vix_regime.json"
     out_path.write_text(json.dumps(out, indent=2, ensure_ascii=False, default=str), encoding='utf-8')
     print(f"\n  → {out_path}")

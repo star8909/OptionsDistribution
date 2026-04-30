@@ -1,4 +1,8 @@
 {
   "n_days": 4816,
-  "kospi_rv_21d_mean": 18.667107162305687
+  "kospi_rv_21d_mean": 18.667107162305687,
+  "panic_rv30": {
+    "n_raw": 381,
+    "n_independent": 6
+  }
 }

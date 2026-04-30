@@ -14,7 +14,7 @@ import numpy as np
 import pandas as pd
 
 from src.config import RESULTS_DIR
-from src.data_loader import fetch_history
+from src.data_loader import fetch_history, deduplicate_events, event_sharpe
 
 
 def main():
@@ -45,22 +45,30 @@ def main():
         marker = "🚀" if r21 > 3 and win21 > 60 else ""
         print(f"  {str(bin_):15s} {len(sub):>5} {r3:>+6.2f}% {r5:>+6.2f}% {r10:>+6.2f}% {r21:>+6.2f}% {win21:>4.0f}% {marker}")
 
-    # Strong drop
-    drop3 = df[df["ret_1d"] < -0.03].dropna(subset=["future_5d"])
-    if len(drop3) >= 30:
+    # Strong drop (독립 이벤트로 중복 제거, cooldown=5d for short-horizon signals)
+    drop3_raw_signal = df["ret_1d"] < -0.03
+    drop3_dedup = deduplicate_events(drop3_raw_signal, cooldown_days=5)
+    drop3 = df[drop3_dedup].dropna(subset=["future_5d"])
+    raw_n_drop3 = len(df[drop3_raw_signal].dropna(subset=["future_5d"]))
+    warning = " ⚠️ N 부족 (신뢰 불가)" if len(drop3) < 10 else ""
+    print(f"\n  KOSPI 1d -3%+ drop: Raw N={raw_n_drop3} → 독립 이벤트 N={len(drop3)}{warning}")
+    if len(drop3) >= 5:
         avg5 = drop3["future_5d"].mean() * 100
         win5 = (drop3["future_5d"] > 0).sum() / len(drop3) * 100
-        avg21 = drop3["future_21d"].mean() * 100 if not drop3["future_21d"].isna().all() else 0
-        win21 = (drop3["future_21d"] > 0).sum() / len(drop3.dropna(subset=["future_21d"])) * 100
-        print(f"\n  KOSPI 1d -3%+ drop ({len(drop3)}일):")
+        avg21 = drop3["future_21d"].dropna().mean() * 100 if not drop3["future_21d"].isna().all() else 0
+        win21 = (drop3["future_21d"] > 0).sum() / max(len(drop3.dropna(subset=["future_21d"])), 1) * 100
         print(f"    5d {avg5:+.2f}% (win {win5:.1f}%)")
         print(f"    21d {avg21:+.2f}% (win {win21:.1f}%)")
 
-    drop5 = df[df["ret_1d"] < -0.05].dropna(subset=["future_5d"])
-    if len(drop5) >= 10:
+    drop5_raw_signal = df["ret_1d"] < -0.05
+    drop5_dedup = deduplicate_events(drop5_raw_signal, cooldown_days=5)
+    drop5 = df[drop5_dedup].dropna(subset=["future_5d"])
+    raw_n_drop5 = len(df[drop5_raw_signal].dropna(subset=["future_5d"]))
+    warning5 = " ⚠️ N 부족 (신뢰 불가)" if len(drop5) < 10 else ""
+    print(f"\n  KOSPI 1d -5%+ drop: Raw N={raw_n_drop5} → 독립 이벤트 N={len(drop5)}{warning5}")
+    if len(drop5) >= 5:
         avg5 = drop5["future_5d"].mean() * 100
         win5 = (drop5["future_5d"] > 0).sum() / len(drop5) * 100
-        print(f"\n  KOSPI 1d -5%+ drop ({len(drop5)}일):")
         print(f"    5d {avg5:+.2f}% (win {win5:.1f}%)")
 
     out_path = RESULTS_DIR / "iter13_kospi_intraday.json"

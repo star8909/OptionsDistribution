@@ -1,0 +1,28 @@
+[iter17] VIX × VVIX joint panic
+  데이터: 2506 days, VIX 9.1~82.7, VVIX 73~208
+
+=== VIX×VVIX 결합 (180d future) ===
+  VIX>20 AND VVIX>90: N= 625 180d  +15.53% Win  81.9% Sharpe  1.41 ✅
+  VIX>25 AND VVIX>100: N= 283 180d  +20.75% Win  83.0% Sharpe  1.76 ✅
+  VIX>25 AND VVIX>110: N= 228 180d  +20.44% Win  79.8% Sharpe  1.61 
+  VIX>30 AND VVIX>110: N= 133 180d  +24.30% Win  82.0% Sharpe  1.84 ✅
+  VIX>30 AND VVIX>120: N= 109 180d  +24.94% Win  79.8% Sharpe  1.78 
+  VIX>30 AND VVIX>130: N=  72 180d  +29.52% Win  86.1% Sharpe  2.16 ✅
+  VIX>35 AND VVIX>130: N=  47 180d  +37.21% Win  95.7% Sharpe  3.58 🚀
+  VIX>35 AND VVIX>140: N=  34 180d  +40.59% Win 100.0% Sharpe  4.30 🚀
+  VIX>40 AND VVIX>130: N=  33 180d  +43.40% Win 100.0% Sharpe  6.57 🚀
+  VIX>40 AND VVIX>150: N=  19 180d  +47.49% Win 100.0% Sharpe  7.17 🚀
+
+=== VIX×VVIX 결합 (21d future) ===
+  VIX>20 AND VVIX>90: N= 666 21d  +2.28% Win  71.6% 
+  VIX>25 AND VVIX>100: N= 297 21d  +3.95% Win  80.5% 
+  VIX>25 AND VVIX>110: N= 242 21d  +4.21% Win  81.4% 
+  VIX>30 AND VVIX>110: N= 135 21d  +5.51% Win  85.2% ✅
+  VIX>30 AND VVIX>120: N= 111 21d  +6.44% Win  88.3% ✅
+  VIX>30 AND VVIX>130: N=  73 21d  +7.89% Win  93.2% 🚀
+  VIX>35 AND VVIX>130: N=  47 21d  +9.51% Win  93.6% 🚀
+  VIX>35 AND VVIX>140: N=  34 21d +11.55% Win 100.0% 🚀
+  VIX>40 AND VVIX>130: N=  33 21d +10.52% Win  93.9% 🚀
+  VIX>40 AND VVIX>150: N=  19 21d +14.05% Win 100.0% 🚀
+
+  → C:\Projects\OptionsDistribution\results\iter17_vix_vvix_joint.json

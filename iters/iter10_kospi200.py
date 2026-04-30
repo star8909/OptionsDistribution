@@ -18,7 +18,7 @@ import numpy as np
 import pandas as pd
 
 from src.config import RESULTS_DIR
-from src.data_loader import fetch_history
+from src.data_loader import fetch_history, deduplicate_events, event_sharpe
 
 
 def realized_vol(prices, window):
@@ -83,14 +83,25 @@ def main():
         marker = "🚀 LONG" if avg180 > 8 else ""
         print(f"  RV {str(bin_)}: N={len(sub)}, 60d {avg60:+.2f}%, 180d {avg180:+.2f}%, win {win180:.1f}%  {marker}")
 
-    # Strong panic
-    panic = df[df["rv_21d"] > 30].dropna(subset=["future_180d"])
-    if len(panic) >= 20:
+    # Strong panic (독립 이벤트로 중복 제거)
+    panic_raw_signal = df["rv_21d"] > 30
+    panic_dedup = deduplicate_events(panic_raw_signal, cooldown_days=180)
+    panic = df[panic_dedup].dropna(subset=["future_180d"])
+    raw_n_panic = len(df[panic_raw_signal].dropna(subset=["future_180d"]))
+    warning = " ⚠️ N 부족 (신뢰 불가)" if len(panic) < 10 else ""
+    print(f"\n  KS RV > 30 (panic): Raw N={raw_n_panic} → 독립 이벤트 N={len(panic)}{warning}")
+    if len(panic) >= 5:
         avg = panic["future_180d"].mean() * 100
         win = (panic["future_180d"] > 0).sum() / len(panic) * 100
-        print(f"\n  KS RV > 30 (panic) {len(panic)}일 → KS 180d {avg:+.1f}% (win {win:.1f}%)")
+        sh = event_sharpe(panic["future_180d"])
+        sh_str = f"{sh:.2f}" if not np.isnan(sh) else "N/A (N<10)"
+        print(f"  독립 이벤트 {len(panic)}건 → KS 180d {avg:+.1f}% (win {win:.1f}%, Sharpe={sh_str})")
 
-    out = {"n_days": len(df), "kospi_rv_21d_mean": float(df['rv_21d'].mean())}
+    out = {
+        "n_days": len(df),
+        "kospi_rv_21d_mean": float(df['rv_21d'].mean()),
+        "panic_rv30": {"n_raw": raw_n_panic, "n_independent": len(panic)},
+    }
     out_path = RESULTS_DIR / "iter10_kospi200.json"
     out_path.write_text(json.dumps(out, indent=2, ensure_ascii=False, default=str), encoding='utf-8')
     print(f"\n  → {out_path}")

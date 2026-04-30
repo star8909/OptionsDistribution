@@ -1,3 +1,7 @@
 {
-  "n_days": 2514
+  "n_days": 2514,
+  "panic_vix30": {
+    "n_raw": 152,
+    "n_independent": 7
+  }
 }
