@@ -1,0 +1,10 @@
+{
+  "round": 4,
+  "strategy": "fomc_drift",
+  "horizon": "fwd_21d",
+  "raw_n": 120,
+  "n": 119,
+  "mean_pct": 1.1695918850413882,
+  "win_pct": 68.90756302521008,
+  "sharpe": 0.35974184090322264
+}

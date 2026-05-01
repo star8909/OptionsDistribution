@@ -1,0 +1,17 @@
+{
+  "round": 7,
+  "config": "VIX>22_VVIX>105_cd30",
+  "params": {
+    "name": "VIX>22_VVIX>105_cd30",
+    "vix_thr": 22,
+    "vvix_thr": 105,
+    "cooldown": 30,
+    "horizon": 180
+  },
+  "raw_n": 416,
+  "independent_n": 27,
+  "mean_pct": 10.777321007808471,
+  "median_pct": 10.162249521417088,
+  "win_pct": 81.48148148148148,
+  "sharpe": 1.2655323089073518
+}

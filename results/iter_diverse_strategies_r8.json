@@ -1,0 +1,10 @@
+{
+  "round": 8,
+  "strategy": "turn_of_month",
+  "horizon": "fwd_5d",
+  "raw_n": 600,
+  "n": 119,
+  "mean_pct": 0.41203626920244985,
+  "win_pct": 61.34453781512605,
+  "sharpe": 0.3099572092839569
+}

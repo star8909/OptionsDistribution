@@ -1,0 +1,10 @@
+{
+  "round": 2,
+  "strategy": "vix_term_inv",
+  "horizon": "fwd_180d",
+  "raw_n": 194,
+  "n": 21,
+  "mean_pct": 10.04754999526429,
+  "win_pct": 80.95238095238095,
+  "sharpe": 1.2472225919549553
+}

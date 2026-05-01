@@ -1,0 +1,10 @@
+{
+  "round": 7,
+  "strategy": "dd_recovery_180d",
+  "horizon": "fwd_180d",
+  "raw_n": 179,
+  "n": 8,
+  "mean_pct": null,
+  "win_pct": null,
+  "sharpe": null
+}

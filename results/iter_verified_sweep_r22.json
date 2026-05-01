@@ -1,0 +1,16 @@
+{
+  "round": 22,
+  "config": "VIX>25_cd30_180d",
+  "params": {
+    "name": "VIX>25_cd30_180d",
+    "vix_thr": 25,
+    "cooldown": 30,
+    "horizon": 180
+  },
+  "raw_n": 366,
+  "independent_n": 23,
+  "mean_pct": 11.642635279972211,
+  "median_pct": 14.703655674630678,
+  "win_pct": 82.6086956521739,
+  "sharpe": 1.3298484357081304
+}
