@@ -1,0 +1,10 @@
+{
+  "round": 12,
+  "strategy": "vix_calm_under12_21d",
+  "horizon": "fwd_21d",
+  "raw_n": 265,
+  "n": 26,
+  "mean_pct": 0.8769767085408369,
+  "win_pct": 69.23076923076923,
+  "sharpe": 0.4507491676140468
+}

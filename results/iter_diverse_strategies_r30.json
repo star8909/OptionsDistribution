@@ -1,0 +1,10 @@
+{
+  "round": 30,
+  "strategy": "extreme_combo_panic_180d",
+  "horizon": "fwd_180d",
+  "raw_n": 28,
+  "n": 4,
+  "mean_pct": null,
+  "win_pct": null,
+  "sharpe": null
+}

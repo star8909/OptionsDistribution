@@ -1,0 +1,10 @@
+{
+  "round": 26,
+  "strategy": "vix3m_calm_bull_90d",
+  "horizon": "fwd_90d",
+  "raw_n": 200,
+  "n": 13,
+  "mean_pct": 6.135425345506413,
+  "win_pct": 92.3076923076923,
+  "sharpe": 1.6225541344580212
+}

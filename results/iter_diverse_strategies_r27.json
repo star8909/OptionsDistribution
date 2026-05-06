@@ -1,0 +1,10 @@
+{
+  "round": 27,
+  "strategy": "tlt_vol_spike_60d",
+  "horizon": "fwd_60d",
+  "raw_n": 133,
+  "n": 11,
+  "mean_pct": 1.9461840637954955,
+  "win_pct": 63.63636363636363,
+  "sharpe": 0.36554251096529733
+}

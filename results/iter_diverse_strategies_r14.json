@@ -1,0 +1,10 @@
+{
+  "round": 14,
+  "strategy": "slow_drop_21d_rev_90d",
+  "horizon": "fwd_90d",
+  "raw_n": 40,
+  "n": 8,
+  "mean_pct": null,
+  "win_pct": null,
+  "sharpe": null
+}

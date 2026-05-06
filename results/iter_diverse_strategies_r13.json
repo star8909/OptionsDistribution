@@ -1,0 +1,10 @@
+{
+  "round": 13,
+  "strategy": "crash_5d_rev_30d",
+  "horizon": "fwd_30d",
+  "raw_n": 54,
+  "n": 21,
+  "mean_pct": 2.761223842576705,
+  "win_pct": 61.904761904761905,
+  "sharpe": 0.48071536467230225
+}

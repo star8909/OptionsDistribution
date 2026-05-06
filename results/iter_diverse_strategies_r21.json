@@ -1,0 +1,10 @@
+{
+  "round": 21,
+  "strategy": "vxx_rolldown_contango_21d",
+  "horizon": "fwd_21d",
+  "raw_n": 1266,
+  "n": 67,
+  "mean_pct": 1.202920620444029,
+  "win_pct": 68.65671641791045,
+  "sharpe": 0.5268677214387736
+}

@@ -1,0 +1,10 @@
+{
+  "round": 16,
+  "strategy": "vix9d_strong_inv_90d",
+  "horizon": "fwd_90d",
+  "raw_n": 155,
+  "n": 35,
+  "mean_pct": 6.370592367453103,
+  "win_pct": 80.0,
+  "sharpe": 1.32266466148711
+}

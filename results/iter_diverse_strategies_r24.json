@@ -1,0 +1,10 @@
+{
+  "round": 24,
+  "strategy": "panic_putwrite_60d",
+  "horizon": "fwd_60d",
+  "raw_n": 34,
+  "n": 13,
+  "mean_pct": 7.304158273386224,
+  "win_pct": 76.92307692307693,
+  "sharpe": 1.206794673719976
+}

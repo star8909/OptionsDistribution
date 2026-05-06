@@ -1,0 +1,10 @@
+{
+  "round": 25,
+  "strategy": "treasury_flight_rev_90d",
+  "horizon": "fwd_90d",
+  "raw_n": 100,
+  "n": 15,
+  "mean_pct": 12.07354822896958,
+  "win_pct": 93.33333333333333,
+  "sharpe": 1.6580669754959598
+}

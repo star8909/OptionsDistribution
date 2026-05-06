@@ -1,0 +1,10 @@
+{
+  "round": 18,
+  "strategy": "spy_50d_trend_calm",
+  "horizon": "fwd_21d",
+  "raw_n": 1512,
+  "n": 58,
+  "mean_pct": 1.4502889140765933,
+  "win_pct": 72.41379310344827,
+  "sharpe": 0.5848665252336749
+}

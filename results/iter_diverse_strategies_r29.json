@@ -1,0 +1,10 @@
+{
+  "round": 29,
+  "strategy": "vix9d_crash_combined_60d",
+  "horizon": "fwd_60d",
+  "raw_n": 42,
+  "n": 10,
+  "mean_pct": 4.25103879042558,
+  "win_pct": 70.0,
+  "sharpe": 0.6282062749799567
+}

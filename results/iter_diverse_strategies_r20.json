@@ -1,0 +1,10 @@
+{
+  "round": 20,
+  "strategy": "multi_trigger_panic_180d",
+  "horizon": "fwd_180d",
+  "raw_n": 233,
+  "n": 15,
+  "mean_pct": 13.944748340050817,
+  "win_pct": 86.66666666666667,
+  "sharpe": 1.4822385046417281
+}

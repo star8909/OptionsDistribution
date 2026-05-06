@@ -1,0 +1,10 @@
+{
+  "round": 11,
+  "strategy": "vix_extreme_35_180d",
+  "horizon": "fwd_180d",
+  "raw_n": 61,
+  "n": 10,
+  "mean_pct": 20.64368141211769,
+  "win_pct": 90.0,
+  "sharpe": 2.0638577338401545
+}

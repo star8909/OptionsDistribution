@@ -1,0 +1,10 @@
+{
+  "round": 19,
+  "strategy": "tlt_drop_spy_60d",
+  "horizon": "fwd_60d",
+  "raw_n": 512,
+  "n": 61,
+  "mean_pct": 3.5938426872490674,
+  "win_pct": 75.40983606557377,
+  "sharpe": 0.6930059414357927
+}

@@ -1,0 +1,10 @@
+{
+  "round": 15,
+  "strategy": "vvix_extreme_130_90d",
+  "horizon": "fwd_90d",
+  "raw_n": 114,
+  "n": 23,
+  "mean_pct": 7.0060180837759685,
+  "win_pct": 69.56521739130434,
+  "sharpe": 0.9157345217480483
+}

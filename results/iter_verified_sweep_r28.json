@@ -1,17 +1,17 @@
 {
   "round": 28,
-  "config": "VIX>25_VVIX>110_cd30",
+  "config": "VIX>22_cd30_h21",
   "params": {
-    "name": "VIX>25_VVIX>110_cd30",
-    "vix_thr": 25,
-    "vvix_thr": 110,
+    "name": "VIX>22_cd30_h21",
+    "vix_thr": 22,
     "cooldown": 30,
-    "horizon": 180
+    "horizon": 21
   },
-  "raw_n": 244,
-  "independent_n": 21,
-  "mean_pct": 12.465367636877696,
-  "median_pct": 14.703655674630678,
-  "win_pct": 80.95238095238095,
-  "sharpe": 1.3747230950570375
+  "raw_n": 576,
+  "independent_n": 27,
+  "mean_pct": 0.18041923176827246,
+  "median_pct": 1.5674594837803868,
+  "win_pct": 62.96296296296296,
+  "sharpe": 0.04196822337096243,
+  "mdd_pct": -25.324908324419894
 }
